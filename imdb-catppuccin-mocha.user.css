@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name         IMDb — Catppuccin Mocha Theme
 @namespace    blackspirits.github.io/
-@version      1.0.1
+@version      1.0.2
 @description  Catppuccin Mocha dark theme for IMDb: consistent colors, transparent rating bar with unified hover/radius, header flyouts, autosuggest, awards highlights, subnav spacing, IMDb Scout tweaks, and icon refinements.
 @license      MIT
 @author       BlackSpirits
@@ -58,6 +58,45 @@ main, .ipc-page-wrapper, .ipc-page-content-container,
   border: none !important;
 }
 
+/* --- Kill the dark gradient band under the hero --- */
+.ipc-page-background--baseAlt,
+.ipc-page-section--baseAlt,
+[data-testid="hero-parent"],
+.sc-b234497d-0,
+.sc-b234497d-1,
+.sc-b234497d-2,
+.sc-b234497d-3,
+.sc-b234497d-4 {
+  background: var(--ctp-base) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Some pages draw the band with ::before/::after overlays */
+[data-testid="hero-parent"]::before,
+[data-testid="hero-parent"]::after,
+.sc-b234497d-0::before,
+.sc-b234497d-0::after,
+.sc-b234497d-3::before,
+.sc-b234497d-3::after,
+.sc-b234497d-4::before,
+.sc-b234497d-4::after {
+  content: none !important;
+  background: transparent !important;
+  background-image: none !important;
+}
+
+/* Safety net: any “baseAlt” inside hero shouldn’t paint a panel */
+[data-testid="hero-parent"] .baseAlt {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+/* Upsell do IMDbPro também costuma forçar faixas escuras; limpa-o */
+#ProUpsellLink,
+[data-testid="hero-proupsell"],
+.pro-upsell { display: none !important; }
+                 
 /* ===== Typography & links ===== */
 h1, h2, h3, .ipc-title, .ipc-title__text,
 [class*="TitleHeader"], [data-testid*="title"] { color: var(--ctp-text) !important; }
