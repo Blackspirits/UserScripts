@@ -1,0 +1,591 @@
+/* ==UserStyle==
+@name         IMDb — Catppuccin Mocha Theme
+@namespace    blackspirits.github.io/
+@version      1.0.0
+@description  Catppuccin Mocha dark theme for IMDb: consistent colors, transparent rating bar with unified hover/radius, header flyouts (User & Language), autosuggest, awards highlights, subnav spacing, IMDb Scout headers, and icon tweaks.
+@license      MIT
+@author       BlackSpirits
+@icon         https://www.google.com/s2/favicons?sz=64&domain=imdb.com
+@homepageURL  https://github.com/Blackspirits/UserScripts
+@supportURL   https://github.com/Blackspirits/UserScripts/issues
+@match        https://www.imdb.com/*
+@match        https://imdb.com/*
+@match        https://m.imdb.com/*
+==/UserStyle== */
+
+@-moz-document url-prefix("https://imdb.com/"),
+               url-prefix("https://www.imdb.com/"),
+               url-prefix("https://m.imdb.com/") {
+
+/* ===========================
+   IMDb — Catppuccin Mocha Theme
+   Maintainer: BlackSpirits
+   =========================== */
+
+/* ===== Root variables ===== */
+:root {
+  /* Catppuccin Mocha palette */
+  --ctp-base:#1e1e2e; --ctp-mantle:#181825; --ctp-crust:#1e1e2e;
+  --ctp-text:#cdd6f4; --ctp-subtext1:#bac2de; --ctp-subtext0:#a6adc8;
+  --ctp-overlay2:#9399b2; --ctp-overlay1:#7f849c; --ctp-overlay0:#6c7086;
+  --ctp-surface2:#585b70; --ctp-surface1:#45475a; --ctp-surface0:#313244;
+  --ctp-blue:#89b4fa; --ctp-lavender:#b4befe; --ctp-sapphire:#74c7ec; --ctp-sky:#89dceb;
+  --ctp-teal:#94e2d5; --ctp-green:#a6e3a1; --ctp-yellow:#f9e2af; --ctp-peach:#fab387;
+  --ctp-maroon:#eba0ac; --ctp-red:#f38ba8; --ctp-mauve:#cba6f7; --ctp-rosewater:#f5e0dc; --ctp-pink:#f5c2e7;
+
+  /* UI tokens */
+  --rating-hover: rgba(255,255,255,.10);
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --watchlist-blue: #00ABD2;
+
+  color-scheme: dark;
+}
+
+/* ===== Global resets / backgrounds ===== */
+html, body, #root { background: var(--ctp-base) !important; color: var(--ctp-text) !important; }
+html, body { background: var(--ctp-mantle) !important; }
+main, .ipc-page-wrapper, .ipc-page-content-container,
+.ipc-page-background, .ipc-page-background--base, .ipc-page-background--baseAlt,
+.ipc-page-section {
+  background: var(--ctp-base) !important;
+  color: var(--ctp-text) !important;
+  border-color: var(--ctp-surface2) !important;
+}
+
+.imdb-header, header, .imdb-footer, footer {
+  background: var(--ctp-crust) !important;
+  color: var(--ctp-text) !important;
+  border: none !important;
+}
+
+/* ===== Typography & links ===== */
+h1, h2, h3, .ipc-title, .ipc-title__text,
+[class*="TitleHeader"], [data-testid*="title"] { color: var(--ctp-text) !important; }
+
+.ipc-title__text--reduced, h3.ipc-title__text.ipc-title__text--reduced { color: var(--ctp-text) !important; }
+
+a, .ipc-link, .ipc-link--base, .ipc-chip__text { color: var(--ctp-blue) !important; }
+a:hover, .ipc-link:hover { color: var(--ctp-lavender) !important; }
+a:visited { color: var(--ctp-sapphire) !important; }
+
+.ipc-text--subhead, .ipc-sub-text, .ipc-inline-list__item { color: var(--ctp-subtext0) !important; }
+svg, .ipc-icon, .ipc-icon--inline, .ipc-icon--dynamic-fill { fill: currentColor !important; color: var(--ctp-text) !important; }
+
+/* ===== Common containers & buttons ===== */
+:is(.ipc-card, .ipc-list-card, .ipc-poster-card, .ipc-slate-card, .ipc-chip, .ipc-tag) {
+  background: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+}
+
+:is(button, .ipc-btn, .ipc-button, .ipc-icon-button) {
+  background: var(--ctp-surface1) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+}
+:is(button, .ipc-btn, .ipc-button, .ipc-icon-button):hover { background: var(--ctp-surface2) !important; }
+
+.ipc-btn--core-accent1, .ipc-btn--theme-primary {
+  background: var(--ctp-mauve) !important; color:#1b1b1b !important; border-color: var(--ctp-mauve) !important;
+}
+.ipc-btn--core-baseAlt, .ipc-btn--theme-baseAlt {
+  background: var(--ctp-surface1) !important; color: var(--ctp-text) !important; border: 1px solid var(--ctp-surface2) !important;
+}
+
+:focus-visible { outline:2px solid var(--ctp-lavender) !important; outline-offset:2px !important; }
+
+/* ===== Inputs ===== */
+:is(input, select, textarea, .ipc-textfield__input, .ipc-select) {
+  background: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+  border:1px solid var(--ctp-surface2) !important;
+}
+input::placeholder, textarea::placeholder { color: var(--ctp-overlay1) !important; }
+
+/* ===== Dividers ===== */
+hr, .ipc-divider, .ipc-page-section--divider, .ipc-list-card--bordered { border-color: var(--ctp-surface2) !important; }
+
+/* ===== Ratings & meters (global style) ===== */
+[class*="rating"], .ipc-rating-star { color: var(--ctp-yellow) !important; }
+[aria-label*="rating"] .ipc-rating-star--base, .rating-bar__base, .meter-bar { background: var(--ctp-surface1) !important; }
+.rating-bar__bar, .meter-100, .meter-50, .meter-30, .meter-10 { background: var(--ctp-yellow) !important; }
+.imdb-rating__score, .rating-bar__label { color: var(--ctp-yellow) !important; }
+
+/* ===== JW Player tweaks ===== */
+.jw-controlbar, .jw-top .jw-text { background: var(--ctp-surface0) !important; color: var(--ctp-text) !important; }
+
+/* ===== Scrollbars ===== */
+* { scrollbar-color: var(--ctp-surface2) var(--ctp-surface0) !important; }
+::-webkit-scrollbar { width:12px; height:12px; }
+::-webkit-scrollbar-thumb { background: var(--ctp-surface2); }
+::-webkit-scrollbar-track { background: var(--ctp-surface0); }
+
+/* ===== Tables & metadata ===== */
+table, thead, tbody, tr, th, td {
+  background: transparent !important; color: var(--ctp-text) !important; border-color: var(--ctp-surface2) !important;
+}
+
+.ipc-html-content--base { color: var(--ctp-text) !important; }
+.hKzYjy, .ipc-title.ipc-title--base .ipc-title__description { color: var(--ctp-subtext1) !important; }
+.mElyX .metadata { color: var(--ctp-subtext1) !important; }
+.hLAkYe { color: var(--ctp-text) !important; }
+
+.ipc-metadata-list, .ipc-metadata-list__item { background: transparent !important; }
+.ipc-metadata-list--base .ipc-metadata-list__item { border-bottom:1px solid var(--ctp-surface2) !important; }
+
+/* Labels & content inside metadata rows */
+.ipc-metadata-list-item__label,
+.ipc-metadata-list-item__label.ipc-btn--not-interactable { color: var(--ctp-text) !important; font-weight: 500; }
+.ipc-metadata-list--base .ipc-metadata-list__item .ipc-metadata-list-item__list-content-item,
+.ipc-metadata-list--base .ipc-metadata-list__item .ipc-metadata-list-item__list-content-item a { color: var(--ctp-text) !important; }
+.ipc-metadata-list--base .ipc-metadata-list__item .ipc-metadata-list-item__list-content-item a:hover { color: var(--ctp-lavender) !important; }
+.ipc-metadata-list--base .ipc-metadata-list-item__list-content-item--subText { color: var(--ctp-subtext1) !important; }
+.ipc-metadata-list-item__list-content-item.ipc-btn--not-interactable { color: var(--ctp-text) !important; }
+
+/* ===== Card titles/links ===== */
+:is(.ipc-poster-card__content a, .ipc-list-card__content a, .ipc-slate-card__content a,
+    .ipc-poster-card__title a, .ipc-list-card__title a) { color: var(--ctp-text) !important; }
+:is(.ipc-poster-card__content a, .ipc-list-card__content a, .ipc-slate-card__content a,
+    .ipc-poster-card__title a, .ipc-list-card__title a):hover { color: var(--ctp-lavender) !important; }
+
+/* ===== Layouts & responsive backgrounds ===== */
+@media (min-width: 600px) { .WLFG { background: var(--ctp-base) !important; } }
+@media (min-width: 1024px) { .dosqkt { background:#1e1e2e !important; } }
+@supports (display:grid) {
+  @media (min-width: 1024px) { .ipc-page-grid.ipc-page-grid--bias-left { background: var(--ctp-base) !important; } }
+}
+
+/* ===== Misc sections ===== */
+.ftSovk, .egXUpe, .ghIPgB { background: var(--ctp-base) !important; color: var(--ctp-text) !important; }
+.ftSovk a { color: var(--ctp-text) !important; }
+.ftSovk a:hover { background: var(--ctp-surface1) !important; color: var(--ctp-text) !important; }
+
+/* ===== Lists & chips ===== */
+.ipc-chip--on-baseAlt, .ipc-chip--on-base, .ipc-chip--default {
+  background: var(--ctp-surface1) !important; color: var(--ctp-text) !important; border-color: var(--ctp-surface2) !important;
+}
+.ipc-chip--selected, .ipc-chip[aria-pressed="true"] {
+  background: var(--ctp-mauve) !important; color:#1b1b1b !important; border-color: var(--ctp-mauve) !important;
+}
+.ipc-list__item:nth-child(odd) { background: rgba(49,50,68,0.35) !important; }
+
+/* ===== Dialogs & media viewer ===== */
+[role="dialog"], .ipc-dialog, .ipc-dialog__container, .media-viewer, .media-viewer__container {
+  background: var(--ctp-crust) !important; color: var(--ctp-text) !important; border-color: var(--ctp-surface2) !important;
+}
+
+/* ===== Header search ===== */
+.iemiob .imdb-header-search__state,
+.iemiob .imdb-header-search__input,
+.iemiob .nav-search__search-submit {
+  appearance: none;
+  border: none !important;
+  border-radius: var(--radius-sm) !important;
+  background: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+}
+.imdb-header-search__input:focus,
+.nav-search__search-submit:focus,
+.searchCatSelector-button:focus,
+.searchCatSelector-button-mobile:focus { outline: none !important; box-shadow: none !important; }
+
+#nav-search-form, #nav-search-form * { box-shadow: none !important; }
+#nav-search-form :is(input, button, select):focus { box-shadow: none !important; outline: none !important; }
+
+/* Header compact spacing */
+.navbar__inner { gap: 5px !important; }
+.imdb-header__watchlist-button, .nav__userMenu, .sc-44b56d54-0.hlOjAe { margin-left: 1px !important; }
+@media (max-width: 768px) {
+  .navbar__inner { gap: 1px !important; }
+  .imdb-header__watchlist-button, .nav__userMenu, .sc-44b56d54-0.hlOjAe { margin-left: 1px !important; }
+}
+
+/* ===== Menus & flyouts ===== */
+:is([data-menu-id="navUserMenu"].navbar__flyout--menu,
+    [data-menu-id="navUserMenu"].ipc-menu,
+    [data-menu-id="nav-language-selector"].ipc-menu,
+    [data-menu-id="nav-language-selector"].navbar__flyout--menu) { border: none !important; box-shadow: none !important; }
+
+:is([data-menu-id="navUserMenu"] .ipc-menu__items,
+    [data-menu-id="navUserMenu"] .navbar__flyout--menu__background,
+    [data-menu-id="nav-language-selector"] .ipc-menu__items,
+    [data-menu-id="nav-language-selector"] .navbar__flyout--menu__background) { border: none !important; box-shadow: none !important; }
+
+:is([data-menu-id="navUserMenu"], [data-menu-id="nav-language-selector"])::before,
+:is([data-menu-id="navUserMenu"], [data-menu-id="nav-language-selector"])::after,
+:is([data-menu-id="navUserMenu"] .ipc-menu__items, [data-menu-id="nav-language-selector"] .ipc-menu__items)::before,
+:is([data-menu-id="navUserMenu"] .ipc-menu__items, [data-menu-id="nav-language-selector"] .ipc-menu__items)::after {
+  display: none !important; content: none !important; border: 0 !important; box-shadow: none !important;
+}
+
+[data-menu-id="nav-language-selector"] .ipc-list-divider { display: none !important; }
+
+/* Base item styles + hover/focus */
+:is([data-menu-id="navUserMenu"] .ipc-list__item, [data-menu-id="nav-language-selector"] .ipc-list__item) {
+  transition: background-color .15s ease, color .15s ease;
+  background: transparent !important;
+  color: var(--ctp-text) !important;
+  border-radius: var(--radius-sm) !important;
+  outline: none !important;
+}
+:is([data-menu-id="navUserMenu"] .ipc-list__item, [data-menu-id="nav-language-selector"] .ipc-list__item):is(:hover, :focus) {
+  background: var(--ctp-surface1) !important; color: var(--ctp-text) !important;
+}
+:is([data-menu-id="navUserMenu"] .ipc-list__item .ipc-list-item__text,
+    [data-menu-id="nav-language-selector"] .ipc-list__item .ipc-list-item__text) { color: var(--ctp-text) !important; }
+:is([data-menu-id="navUserMenu"] .ipc-list__item .ipc-list-item__icon,
+    [data-menu-id="nav-language-selector"] .ipc-list__item .ipc-list-item__icon) { color: var(--ctp-text) !important; fill: var(--ctp-text) !important; }
+[data-menu-id="nav-language-selector"] .language-option.selected:is(:hover, :focus) {
+  background: var(--ctp-surface1) !important; color: var(--ctp-text) !important;
+}
+
+/* ===== Watchlist (blue word + black count) ===== */
+a.ipc-btn[href*="/list/watchlist"] .ipc-btn__text { color: var(--watchlist-blue) !important; }
+a.ipc-btn[href*="/list/watchlist"] .ipc-btn__text .imdb-header__watchlist-button-count { color: #000 !important; }
+a.ipc-btn[href*="/list/watchlist"]:is(:hover, :focus) .ipc-btn__text { color: var(--watchlist-blue) !important; }
+
+/* ================================
+   HERO RATING BAR — transparent controls, shared hover & radius
+   ================================ */
+
+/* Make hero rating buttons/anchors transparent */
+[data-testid^="hero-rating-bar"] .ipc-btn,
+[data-testid="hero-rating-bar__user-rating"] .ipc-btn,
+[data-testid="hero-rating-bar__popularity"] .ipc-btn,
+[data-testid="hero-rating-bar__aggregate-rating"] .ipc-btn {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* Neutralize baseAlt only inside hero rating bar */
+[data-testid^="hero-rating-bar"] .ipc-btn--core-baseAlt,
+[data-testid^="hero-rating-bar"] .ipc-btn--theme-baseAlt {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Clickable containers (Rate, Popularity, external sources, IMDb) */
+.rating-bar__base-button,
+.sc-609d4a85-0,     /* YOUR RATING block */
+.sc-c5358bb8-0,     /* POPULARITY block */
+.sc-9d3bc82f-2 {    /* Internal anchor wrapper */
+  background: transparent !important;
+  border: none !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: none !important;
+  padding: 2px !important;
+  transition: background-color .2s ease-in-out;
+}
+
+/* Shared hover */
+.rating-bar__base-button:hover,
+.sc-609d4a85-0:hover,
+.sc-c5358bb8-0:hover,
+.sc-9d3bc82f-2:hover {
+  background-color: var(--rating-hover) !important;
+}
+
+/* Remove static background panel behind critic/user blocks */
+.sc-4dc495c1-0 { background: transparent !important; }
+
+/* Remove stray boxes around hero rating bar chunks */
+.sc-8e956c5c-0.cfWEab.sc-13687a64-1.iWItnY,
+.sc-8e956c5c-1.dzAXeE {
+  background:none !important; border:none !important; box-shadow:none !important;
+}
+
+/* ===== Image/overlay fixes ===== */
+.ipc-lockup-overlay__screen { background: transparent !important; opacity: 0 !important; }
+.ipc-media img, .ipc-image img, .ipc-avatar img {
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  visibility: visible !important;
+}
+
+/* ===== Drawer ===== */
+@media (min-width: 600px) {
+  .jruBIL {
+    background-color: var(--ctp-mantle) !important;
+    border-radius: 6px !important;
+    border: 1px solid var(--ctp-surface0) !important;
+  }
+}
+
+/* ===== Special containers ===== */
+.jnpMTe.baseAlt {
+  background: var(--ctp-surface0) !important; color: var(--ctp-text) !important;
+  border-top-left-radius: var(--radius-md) !important; border-top-right-radius: var(--radius-md) !important;
+  border-bottom-left-radius: var(--ipt-mediaRadius) !important; border-bottom-right-radius: var(--ipt-mediaRadius) !important;
+  overflow: hidden !important;
+}
+
+/* ===== Edit button ===== */
+a[data-testid="edit-button"] {
+  background-color: #7C4ABD !important;
+  color: #CDD6F4 !important;
+  border-radius: var(--radius-sm) !important;
+}
+a[data-testid="edit-button"]:hover { background-color: #6B3FAA !important; }
+
+/* ===== Mega-menu / Drawer ===== */
+[data-testid="drawer"], .drawer, .drawer__panel, .drawer__panelContent,
+.navlcl, .navlinkcat, .navlinkcat__listContainer, .navlinkcat__listContainerInner,
+.ipc-list.navlinkcat__list {
+  background: var(--ctp-base) !important; color: var(--ctp-text) !important; border: none !important;
+}
+.drawer__backdrop { background: var(--ctp-mantle) !important; opacity: .95 !important; }
+
+.navlinkcat__list .ipc-list__item,
+.navlinkcat__list .ipc-list__item:nth-child(odd),
+[data-testid="panel-content"] .ipc-list__item,
+[data-testid="panel-content"] .ipc-list__item:nth-child(odd) { background: transparent !important; }
+
+.navlinkcat__list .ipc-list-divider { border-color: var(--ctp-surface2) !important; }
+.navlinkcat__list .ipc-list__item:is(:hover, :focus) { background: var(--ctp-base) !important; color: var(--ctp-text) !important; }
+
+/* ===== Awards section ===== */
+[data-testid="awards"],
+[data-testid="awards"] .ipc-metadata-list,
+[data-testid="awards"] .ipc-metadata-list__item,
+[data-testid="awards"] .ipc-inline-list {
+  background: var(--ctp-base) !important; color: var(--ctp-text) !important; border: none !important;
+}
+[data-testid="awards"] a,
+[data-testid="awards"] .ipc-metadata-list-item__list-content-item { color: var(--ctp-text) !important; }
+[data-testid="awards"] a:hover { color: var(--ctp-blue) !important; }
+[data-testid="awards"] svg { fill: var(--ctp-text) !important; }
+[data-testid="awards"] .ipc-inline-list--show-dividers li { border-color: rgba(255,255,255,.15) !important; }
+[data-testid="awards"] { border: 1px solid #f5c518 !important; border-radius: 4px !important; overflow: hidden; }
+
+/* ===== Advanced Search header accents ===== */
+[data-testid="advanced-search-section"] .sc-f7740eed-0 span {
+  color: var(--ctp-mauve) !important; font-weight: 600;
+}
+
+/* ===== Subnav lists (right block cleanup) ===== */
+[data-testid="hero-subnav-bar-right-block"] > *,
+[data-testid="hero-subnav-bar-right-block"] > *::before,
+[data-testid="hero-subnav-bar-right-block"] > *::after { border: none !important; content: none !important; }
+
+[data-testid="hero-list-subnav-privacy-toggle"] { display: flex !important; align-items: center !important; gap: 1px !important; }
+[data-testid="hero-list-subnav-privacy-toggle"] :is(span,label) { margin: 0 !important; }
+[data-testid="hero-list-subnav-export-button"] { margin-right: 8px !important; }
+
+/* ===== Misc extras ===== */
+.inline20-page-background { display:none !important; }
+.ipc-icon.ipc-icon--done.ipc-icon--inline { color: var(--ctp-surface2) !important; fill: var(--ctp-surface2) !important; }
+.metacritic-score-box { color: #fff !important; border-radius: 4px; }
+.metacritic-score-label { color: var(--ctp-subtext1) !important; }
+
+/* ===== Title metadata line ===== */
+.cli-title-metadata {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  margin-bottom: 6px;
+}
+.cli-title-metadata-item {
+  color: var(--ctp-subtext0) !important;
+  font-weight: 500;
+}
+
+/* ===== Metascore box ===== */
+.metacritic-score-box {
+  color: #fff !important;
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 0 6px;
+  line-height: 1.4;
+  margin-right: 4px;
+}
+.metacritic-score-label {
+  color: var(--ctp-subtext1) !important;
+  font-size: 0.9em;
+  margin-left: 4px;
+}
+
+/* ===== Category selector menu ===== */
+.searchCatSelector-menu,
+.searchCatSelector-menu .ipc-menu__items,
+.searchCatSelector-menu .ipc-list {
+  background-color: var(--ctp-mantle) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface0) !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-radius: 6px !important;
+}
+.searchCatSelector-menu .ipc-list__item { background: transparent !important; color: var(--ctp-text) !important; }
+.searchCatSelector-menu .ipc-list__item:hover { background: var(--ctp-surface1) !important; color: var(--ctp-text) !important; }
+
+/* ===== Section headers (e.g., Awards & recognition) ===== */
+.sc-c70bb40c-0.kGJlDJ { color: var(--ctp-mauve) !important; font-weight: 600 !important; }
+
+/* ===== Advanced Search tabs ===== */
+.advanced-search-tabs {
+  background-color: var(--ctp-surface0) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+  border-radius: 6px !important;
+  padding: 2px !important;
+}
+.advanced-search-tabs .ipc-tab {
+  background: transparent !important;
+  color: var(--ctp-text) !important;
+  font-weight: 500 !important;
+  transition: background-color .2s ease, color .2s ease;
+}
+.advanced-search-tabs .ipc-tab:hover { background-color: var(--ctp-surface1) !important; color: var(--ctp-text) !important; }
+.advanced-search-tabs .ipc-tabs__indicator { background-color: var(--ctp-mauve) !important; height: 3px !important; border-radius: 3px !important; }
+.advanced-search-tabs .ipc-tab__icon--pre { fill: currentColor !important; }
+
+/* Advanced Search buttons */
+[data-testid="adv-search-get-results"].ipc-btn {
+  background-color: var(--ctp-mauve) !important;
+  color: #1b1b1b !important;
+  border: 1px solid var(--ctp-mauve) !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  transition: background-color .2s ease, color .2s ease;
+}
+[data-testid="adv-search-get-results"].ipc-btn:not([disabled]):hover {
+  background-color: var(--ctp-lavender) !important; color: #1b1b1b !important;
+}
+[data-testid="adv-search-get-results"].ipc-btn[disabled],
+[data-testid="adv-search-get-results"].ipc-btn.ipc-btn--not-interactable {
+  background-color: var(--ctp-surface1) !important; color: var(--ctp-overlay1) !important; border: 1px solid var(--ctp-surface2) !important; cursor: not-allowed !important;
+}
+.sc-2d056ab8-5.fLmkjJ { background-color: transparent !important; border: none !important; }
+
+[data-testid="adv-search-expand-all"].ipc-btn {
+  padding: 4px 10px !important;
+  background-color: var(--ctp-surface1) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+  border-radius: 6px !important;
+}
+[data-testid="adv-search-expand-all"].ipc-btn:hover { background-color: var(--ctp-surface2) !important; }
+
+.sc-e2d3558-4.cUdRNJ { color: var(--ctp-subtext1) !important; font-style: italic; }
+
+/* Secondary labels */
+.ipc-boolean-input__label { color: var(--ctp-subtext1) !important; font-weight: 500; }
+
+/* ===== Autosuggest (languages) ===== */
+.react-autosuggest__container--open,
+.sc-ed50659a-3.bHbuuJ.react-autosuggest__suggestions-container--open {
+  background-color: var(--ctp-mantle) !important; color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface0) !important; border-top: none !important; border-bottom: none !important;
+  border-radius: 6px !important; box-shadow: none !important;
+}
+.react-autosuggest__suggestions-list, .react-autosuggest__suggestion {
+  background-color: var(--ctp-mantle) !important; color: var(--ctp-text) !important;
+}
+.react-autosuggest__suggestion[aria-selected="true"], .react-autosuggest__suggestion:hover {
+  background-color: var(--ctp-surface1) !important;
+}
+
+.sc-ed50659a-1.xXsGG,
+.sc-ed50659a-0.gwNDFc.react-autosuggest__input {
+  background: var(--ctp-surface0) !important; color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface2) !important; border-radius: 6px !important;
+}
+.sc-ed50659a-0.gwNDFc.react-autosuggest__input::placeholder { color: var(--ctp-overlay1) !important; }
+
+.react-autosuggest__container svg,
+.react-autosuggest__suggestions-container svg { fill: currentColor !important; color: var(--ctp-text) !important; }
+
+/* ===== Primary language only checkbox ===== */
+.sc-f44671ca-1.idmUnN, .ipc-check-box.ipc-check-box--base {
+  background: transparent !important; border: none !important;
+}
+.ipc-boolean-input__icon .ipc-icon { color: var(--ctp-text) !important; fill: var(--ctp-text) !important; }
+
+/* ===== Text inputs ===== */
+.ipc-textinput__label { color: var(--ctp-subtext1) !important; font-weight: 500; }
+
+.ipc-textinput__container,
+.ipc-textinput__input-container,
+.ipc-textfield,
+.ipc-textfield__input-container,
+.ipc-textinput__field-container,
+.ipc-textfield__input,
+.ipc-textfield__input-container {
+  border: 6px !important;              /* keeps IMDb layout happy while removing glow */
+  box-shadow: none !important;
+  background-color: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+  border-radius: 2px !important;
+}
+
+/* Helper/informational texts */
+.sc-44d8068-0, .sc-44d8068-0 * ,
+.sc-44d8068-4, .sc-44d8068-4 * ,
+.sc-44d8068-2, .sc-44d8068-2 * ,
+.sc-47f504ee-2, .sc-b9dddf59-4,
+.sc-303858fe-2, .sc-12f18b2d-4,
+.sc-ebdd2c78-2, .sc-47f504ee-2 * ,
+.sc-b9dddf59-4 * , .sc-303858fe-2 * ,
+.sc-12f18b2d-4 * , .sc-ebdd2c78-2 * ,
+label.ipc-boolean-input__label, .ipc-boolean-input__label, label {
+  color: var(--ctp-subtext1) !important;
+}
+
+/* ===== Reactions/likes ===== */
+.ipc-reaction-summary__label { color: var(--ctp-text) !important; }
+.ipc-reaction-summary__likes-icon { margin-left: 6px !important; }
+
+/* ===== Rating star (unrated state) light yellow ===== */
+.ipc-rating-star--rate svg {
+  color: var(--ctp-yellow) !important;
+  fill: var(--ctp-yellow) !important;
+}
+
+/* ================================
+   HERO SUBNAV — spacing between IMDbPro / All topics / Share
+   ================================ */
+
+/* Use flex gap for consistent spacing */
+[data-testid="hero-subnav-bar-right-block"] {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+/* Slight space after the topic links list */
+[data-testid="hero-subnav-bar-topic-links"] { margin-right: 4px !important; }
+
+/* Extra space specifically requested */
+[data-testid="hero-subnav-bar-imdb-pro-link"] { margin-right: 12px !important; }
+[data-testid="hero-subnav-bar-all-topics-button"] { margin-right: 12px !important; }
+
+/* Remove stray separators in the right block */
+[data-testid="hero-subnav-bar-right-block"] > *::before,
+[data-testid="hero-subnav-bar-right-block"] > *::after {
+  content: none !important; border: 0 !important;
+}
+
+/* ===== Specific sections / accents ===== */
+
+/* Softer "Quotes" title accent */
+.etLrIr { color: #ffdd55 !important; } /* warm yellow, softer than default IMDb gold */
+
+/* Awards highlights */
+.ipc-metadata-list-summary-item__tst { color: #ffdd55 !important; font-weight: 500; }
+.awardCategoryName { color: #ffdd55 !important; font-weight: 500; }
+
+/* IMDb Scout headers (primary & second bar) */
+#imdbscout_header,
+#imdbscoutsecondbar_header { background-color: var(--ctp-base) !important; }
+
+/* IMDb Scout icons header margin (e.g., AniDB icon) */
+#imdbscout_iconsheader { margin-left: 11px !important; }
+
+/* Example: inline AniDB icon margin-left when embedded directly */
+img[alt="AniDB"][style*="margin-left"] { margin-left: 11px !important; }
+
+} /* end @-moz-document */
