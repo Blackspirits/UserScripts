@@ -1,16 +1,15 @@
 /* ==UserStyle==
 @name         IMDb — Catppuccin Mocha Theme
 @namespace    blackspirits.github.io/
-@version      1.0.0
-@description  Catppuccin Mocha dark theme for IMDb: consistent colors, transparent rating bar with unified hover/radius, header flyouts (User & Language), autosuggest, awards highlights, subnav spacing, IMDb Scout headers, and icon tweaks.
+@version      1.0.1
+@description  Catppuccin Mocha dark theme for IMDb: consistent colors, transparent rating bar with unified hover/radius, header flyouts, autosuggest, awards highlights, subnav spacing, IMDb Scout tweaks, and icon refinements.
 @license      MIT
 @author       BlackSpirits
 @icon         https://www.google.com/s2/favicons?sz=64&domain=imdb.com
-@homepageURL  https://github.com/Blackspirits/UserScripts
-@supportURL   https://github.com/Blackspirits/UserScripts/issues
-@match        https://www.imdb.com/*
-@match        https://imdb.com/*
-@match        https://m.imdb.com/*
+@homepageURL  https://github.com/BlackSpirits/UserScripts
+@supportURL   https://github.com/BlackSpirits/UserScripts/issues
+@downloadURL  https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/imdb-catppuccin-mocha.user.css
+@updateURL    https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/imdb-catppuccin-mocha.user.css
 ==/UserStyle== */
 
 @-moz-document url-prefix("https://imdb.com/"),
