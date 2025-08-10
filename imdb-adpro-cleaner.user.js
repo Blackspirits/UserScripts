@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IMDb — Ad/Pro Cleaner
 // @namespace    blackspirits.github.io/
-// @version      1.0
+// @version      1.1
 // @description  Blocks the IMDb ad pipeline and removes sponsored blocks and any IMDbPro UI.
 // @author       BlackSpirits
 // @license      MIT
@@ -10,8 +10,9 @@
 // @downloadURL  https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/imdb-adpro-cleaner.user.js
 // @updateURL    https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/imdb-adpro-cleaner.user.js
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=imdb.com
-// @match        *://www.imdb.com/*
+// @match        *://*.imdb.com/*
 // @run-at       document-start
+// @noframes
 // @grant        none
 // ==/UserScript==
 
