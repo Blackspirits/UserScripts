@@ -2,7 +2,12 @@
 
 <!-- Hero/banner -->
 <p align="center">
-  <img src="./assets/readme-hero.svg" alt="BlackSpirits — UserScripts & UserStyles banner" width="100%">
+  <a href="https://github.com/BlackSpirits/UserScripts/stargazers" rel="noopener">
+    <picture>
+      <source srcset="./assets/readme-hero.webp" type="image/webp" />
+      <img src="./assets/readme-hero.svg" alt="BlackSpirits — UserScripts & UserStyles banner" width="100%">
+    </picture>
+  </a>
 </p>
 
 A personal collection of **UserScripts** (.user.js) and **UserStyles** (.user.css)  
