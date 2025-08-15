@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name         IMDb — Catppuccin Mocha Theme
 @namespace    blackspirits.github.io/
-@version      1.0.2
+@version      2.0
 @description  Catppuccin Mocha dark theme for IMDb: consistent colors, transparent rating bar with unified hover/radius, header flyouts, autosuggest, awards highlights, subnav spacing, IMDb Scout tweaks, and icon refinements.
 @license      MIT
 @author       BlackSpirits
@@ -30,25 +30,46 @@
   --ctp-surface2:#585b70; --ctp-surface1:#45475a; --ctp-surface0:#313244;
   --ctp-blue:#89b4fa; --ctp-lavender:#b4befe; --ctp-sapphire:#74c7ec; --ctp-sky:#89dceb;
   --ctp-teal:#94e2d5; --ctp-green:#a6e3a1; --ctp-yellow:#f9e2af; --ctp-peach:#fab387;
-  --ctp-maroon:#eba0ac; --ctp-red:#f38ba8; --ctp-mauve:#cba6f7; --ctp-rosewater:#f5e0dc; --ctp-pink:#f5c2e7;
+  --ctp-maroon:#eba0ac; --ctp-red:#f38ba8; --ctp-mauve:#cba6f7; --ctp-rosewater:#f5e0dc; --ctp-pink:#f5c2e7; --ctp-flamingo:#f2cdcd;
 
   /* UI tokens */
   --rating-hover: rgba(255,255,255,.10);
   --radius-sm: 5px;
   --radius-md: 8px;
-  --watchlist-blue: #00ABD2;
-
+  
+ 
   color-scheme: dark;
 }
 
 /* ===== Global resets / backgrounds ===== */
-html, body, #root { background: var(--ctp-base) !important; color: var(--ctp-text) !important; }
-html, body { background: var(--ctp-mantle) !important; }
-main, .ipc-page-wrapper, .ipc-page-content-container,
-.ipc-page-background, .ipc-page-background--base, .ipc-page-background--baseAlt,
+
+/* Viewport (outside the app) */
+html, body {
+  background: var(--ctp-mantle) !important;
+  color: var(--ctp-text) !important; /* define a cor global uma vez */
+}
+
+/* App surfaces */
+#root,
+main,
+.ipc-page-wrapper,
+.ipc-page-content-container,
+.ipc-page-background,
+.ipc-page-background--base,
 .ipc-page-section {
   background: var(--ctp-base) !important;
   color: var(--ctp-text) !important;
+  border-color: var(--ctp-surface2) !important;
+}
+
+/* Unwanted baseAlt bands/gradients */
+.ipc-page-background--baseAlt {
+  background: var(--ctp-base) !important;
+  background-image: none !important;
+}
+
+/* Border only on elements that actually draw a border */
+:is(.ipc-card, .ipc-list-card, .ipc-poster-card, .ipc-divider, .ipc-page-section--divider) {
   border-color: var(--ctp-surface2) !important;
 }
 
@@ -92,7 +113,7 @@ main, .ipc-page-wrapper, .ipc-page-content-container,
   background-image: none !important;
 }
 
-/* Upsell do IMDbPro também costuma forçar faixas escuras; limpa-o */
+/* IMDbPro upsell often forces dark bands; remove it */
 #ProUpsellLink,
 [data-testid="hero-proupsell"],
 .pro-upsell { display: none !important; }
@@ -103,12 +124,36 @@ h1, h2, h3, .ipc-title, .ipc-title__text,
 
 .ipc-title__text--reduced, h3.ipc-title__text.ipc-title__text--reduced { color: var(--ctp-text) !important; }
 
-a, .ipc-link, .ipc-link--base, .ipc-chip__text { color: var(--ctp-blue) !important; }
+a, .ipc-link, .ipc-link--base, .ipc-chip__text { color: var(--ctp-peach) !important; }
 a:hover, .ipc-link:hover { color: var(--ctp-lavender) !important; }
-a:visited { color: var(--ctp-sapphire) !important; }
+a:visited { color: var(--ctp-red) !important; }
 
-.ipc-text--subhead, .ipc-sub-text, .ipc-inline-list__item { color: var(--ctp-subtext0) !important; }
-svg, .ipc-icon, .ipc-icon--inline, .ipc-icon--dynamic-fill { fill: currentColor !important; color: var(--ctp-text) !important; }
+.ipc-text--subhead, .ipc-sub-text, .ipc-inline-list__item { color: var(--ctp-peach) !important; }
+svg, .ipc-icon, .ipc-icon--inline, .ipc-icon--dynamic-fill { fill: currentColor !important; color: var(--ctp-red) !important; }
+
+
+
+/* Rating histogram */
+[data-testid="rating-histogram-chart"]
+  [data-testid="histogram-bar-container"] > div {
+  background: var(--ctp-peach) !important;
+  border-color: var(--ctp-red) !important;
+}
+
+[data-testid="rating-histogram-chart"] [data-testid="histogram-label"] {
+  transition: color .15s ease;
+  color: var(--ctp-rosewater) !important;
+}
+
+
+/* Histogram Vote Count */
+:root [data-testid="rating-histogram-chart"] span.vote-count[data-testid="rating-histogram-vote-count"],
+:root [data-testid="rating-histogram-vote-count"].vote-count,
+:root [data-testid="rating-histogram-chart"] [data-testid="rating-histogram-vote-count"] {
+  color: var(--ctp-text) !important;
+  font-weight: 500;
+}
+
 
 /* ===== Common containers & buttons ===== */
 :is(.ipc-card, .ipc-list-card, .ipc-poster-card, .ipc-slate-card, .ipc-chip, .ipc-tag) {
@@ -118,16 +163,13 @@ svg, .ipc-icon, .ipc-icon--inline, .ipc-icon--dynamic-fill { fill: currentColor 
 }
 
 :is(button, .ipc-btn, .ipc-button, .ipc-icon-button) {
-  background: var(--ctp-surface1) !important;
   color: var(--ctp-text) !important;
-  border: 1px solid var(--ctp-surface2) !important;
-}
-:is(button, .ipc-btn, .ipc-button, .ipc-icon-button):hover { background: var(--ctp-surface2) !important; }
+ }
 
 .ipc-btn--core-accent1, .ipc-btn--theme-primary {
   background: var(--ctp-mauve) !important; color:#1b1b1b !important; border-color: var(--ctp-mauve) !important;
 }
-.ipc-btn--core-baseAlt, .ipc-btn--theme-baseAlt {
+.ipc-btn--core-baseAlt {
   background: var(--ctp-surface1) !important; color: var(--ctp-text) !important; border: 1px solid var(--ctp-surface2) !important;
 }
 
@@ -146,7 +188,6 @@ hr, .ipc-divider, .ipc-page-section--divider, .ipc-list-card--bordered { border-
 
 /* ===== Ratings & meters (global style) ===== */
 [class*="rating"], .ipc-rating-star { color: var(--ctp-yellow) !important; }
-[aria-label*="rating"] .ipc-rating-star--base, .rating-bar__base, .meter-bar { background: var(--ctp-surface1) !important; }
 .rating-bar__bar, .meter-100, .meter-50, .meter-30, .meter-10 { background: var(--ctp-yellow) !important; }
 .imdb-rating__score, .rating-bar__label { color: var(--ctp-yellow) !important; }
 
@@ -173,8 +214,6 @@ table, thead, tbody, tr, th, td {
 .ipc-metadata-list--base .ipc-metadata-list__item { border-bottom:1px solid var(--ctp-surface2) !important; }
 
 /* Labels & content inside metadata rows */
-.ipc-metadata-list-item__label,
-.ipc-metadata-list-item__label.ipc-btn--not-interactable { color: var(--ctp-text) !important; font-weight: 500; }
 .ipc-metadata-list--base .ipc-metadata-list__item .ipc-metadata-list-item__list-content-item,
 .ipc-metadata-list--base .ipc-metadata-list__item .ipc-metadata-list-item__list-content-item a { color: var(--ctp-text) !important; }
 .ipc-metadata-list--base .ipc-metadata-list__item .ipc-metadata-list-item__list-content-item a:hover { color: var(--ctp-lavender) !important; }
@@ -197,7 +236,7 @@ table, thead, tbody, tr, th, td {
 /* ===== Misc sections ===== */
 .ftSovk, .egXUpe, .ghIPgB { background: var(--ctp-base) !important; color: var(--ctp-text) !important; }
 .ftSovk a { color: var(--ctp-text) !important; }
-.ftSovk a:hover { background: var(--ctp-surface1) !important; color: var(--ctp-text) !important; }
+.ftSovk a:hover { background: var(--ctp-surface0) !important; color: var(--ctp-text) !important; border-radius: 8px !important; }
 
 /* ===== Lists & chips ===== */
 .ipc-chip--on-baseAlt, .ipc-chip--on-base, .ipc-chip--default {
@@ -279,9 +318,9 @@ table, thead, tbody, tr, th, td {
 }
 
 /* ===== Watchlist (blue word + black count) ===== */
-a.ipc-btn[href*="/list/watchlist"] .ipc-btn__text { color: var(--watchlist-blue) !important; }
-a.ipc-btn[href*="/list/watchlist"] .ipc-btn__text .imdb-header__watchlist-button-count { color: #000 !important; }
-a.ipc-btn[href*="/list/watchlist"]:is(:hover, :focus) .ipc-btn__text { color: var(--watchlist-blue) !important; }
+a.ipc-btn[href*="/list/watchlist"] .ipc-btn__text, .ipc-btn__icon { color: var(--ctp-blue) !important; }
+a.ipc-btn[href*="/list/watchlist"] .ipc-btn__text .imdb-header__watchlist-button-count { color: var(--ctp-crust) !important; }
+a.ipc-btn[href*="/list/watchlist"]:is(:hover, :focus) .ipc-btn__text { color: var(--ctp-blue) !important; }
 
 /* ================================
    HERO RATING BAR — transparent controls, shared hover & radius
@@ -362,13 +401,166 @@ a.ipc-btn[href*="/list/watchlist"]:is(:hover, :focus) .ipc-btn__text { color: va
   overflow: hidden !important;
 }
 
-/* ===== Edit button ===== */
-a[data-testid="edit-button"] {
-  background-color: #7C4ABD !important;
-  color: #CDD6F4 !important;
-  border-radius: var(--radius-sm) !important;
+/* Watch options button: blue text, no background */
+.ipc-btn.ipc-btn--on-accent2.ipc-secondary-button {
+  border: none !important;
+  color: var(--ctp-blue) !important;
 }
-a[data-testid="edit-button"]:hover { background-color: #6B3FAA !important; }
+
+.ipc-btn.ipc-btn--on-accent2.ipc-secondary-button .ipc-icon {
+  color: var(--ctp-blue) !important;
+  fill: var(--ctp-blue) !important;
+}
+
+
+/* ===== Edit and Add button ===== */
+a[data-testid="edit-button"], 
+a[data-testid="add-button"] {
+  background: var(--ctp-mauve) !important;
+  color: var(--ctp-crust) !important; /* texto */
+}
+
+a[data-testid="edit-button"] .ipc-icon, 
+a[data-testid="add-button"] .ipc-icon {
+  color: var(--ctp-crust) !important; /* ícone igual ao texto */
+  fill: var(--ctp-crust) !important;  /* garante para SVG */
+}
+
+a[data-testid="edit-button"]:hover, 
+a[data-testid="add-button"]:hover {
+  background-color: #b689f4 !important; /* mauve mais escuro */
+}
+
+/* ===== Add to Watchlist + Dropdown ===== */
+button[data-testid="tm-box-wl-button"],
+button[data-testid="tm-box-addtolist-button"] {
+  background: var(--ctp-mauve) !important;
+  color: var(--ctp-crust) !important; /* texto */
+}
+
+button[data-testid="tm-box-wl-button"] .ipc-icon,
+button[data-testid="tm-box-addtolist-button"] .ipc-icon {
+  color: var(--ctp-crust) !important; /* ícone igual ao texto */
+  fill: var(--ctp-crust) !important;  /* garante cor em SVG */
+}
+
+/* Hover same as Edit/Add */
+button[data-testid="tm-box-wl-button"]:hover,
+button[data-testid="tm-box-addtolist-button"]:hover {
+  background-color: #b689f4 !important; /* mauve mais claro/hover */
+}
+
+/* "Clear all" button: no box, link-style */
+button[data-testid="rvi-clear-all-btn"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--ctp-blue) !important;
+  padding:8px !important;
+}
+
+/* "Episode guide" button: no border, link-style */
+a[data-testid="hero-subnav-bar-series-episode-guide-link"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--ctp-blue) !important;
+  padding: 8px !important;
+  margin-left: 8px !important;
+}
+
+/* "Cast & crew" link styled as normal text */
+a.ipc-link[href*="/fullcredits"] {
+  color: var(--ctp-text) !important;
+  text-decoration: none !important;
+}
+
+a.ipc-link[href*="/fullcredits"]:hover {
+  text-decoration: underline !important;
+}
+
+/* ===== Menu background - unified style ===== */
+
+/* Language selector menu */
+.ipc-menu[data-menu-id="nav-language-selector"],
+/* Account menu */
+.imdb-header__account-menu,
+.ipc-menu--not-initialized,
+/* Search suggestions menu */
+.react-autosuggest__suggestions-list,
+.anim-enter-done,
+.react-autosuggest__suggestions-list .ipc-menu__items {
+  background-color: var(--ctp-crust) !important;
+  border: none !important;
+  color: var(--ctp-text) !important;
+}
+
+/* Menu items */
+.ipc-menu[data-menu-id="nav-language-selector"] .ipc-list__item,
+.imdb-header__account-menu .ipc-list__item,
+.react-autosuggest__suggestions-list .ipc-list__item {
+  background-color: transparent !important;
+  color: var(--ctp-text) !important;
+}
+
+/* Hover state */
+.ipc-menu[data-menu-id="nav-language-selector"] .ipc-list__item:hover,
+.imdb-header__account-menu .ipc-list__item:hover,
+.react-autosuggest__suggestions-list .ipc-list__item:hover {
+  background-color: var(--ctp-surface0) !important;
+}
+
+/* Dividers */
+.ipc-menu[data-menu-id="nav-language-selector"] .ipc-list-divider,
+.imdb-header__account-menu .ipc-list-divider,
+.react-autosuggest__suggestions-list .ipc-list-divider {
+  border-color: var(--ctp-surface1) !important;
+}
+
+/* FIX: search suggestions – same bg as language/account menus */
+.sc-ed50659a-3.react-autosuggest__suggestions-container--open,
+.sc-ed50659a-3.bHbuuJ.react-autosuggest__suggestions-container--open {
+  background-color: var(--ctp-crust) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Ensure UL/LI/A rows inherit the same bg + text */
+.react-autosuggest__suggestions-list,
+.react-autosuggest__suggestions-list > li,
+.react-autosuggest__suggestions-list a.searchResult {
+  background-color: var(--ctp-crust) !important;
+  color: var(--ctp-text) !important;
+}
+
+/* Hover row */
+.react-autosuggest__suggestions-list > li:hover a.searchResult,
+.react-autosuggest__suggestions-list a.searchResult:hover {
+  background-color: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+}
+
+/* Optional: kill any pseudo gradient caps some builds add */
+.react-autosuggest__suggestions-list::before,
+.react-autosuggest__suggestions-list::after {
+  content: none !important;
+}
+
+/* Drawer close button - crust color */
+.drawer__panelHeaderClose,
+.drawer__panelHeaderClose svg {
+  color: var(--ctp-crust) !important; /* if the icon supports color */
+  fill: var(--ctp-crust) !important;  /* SVG icon color */
+}
+
+/* Hover state - lighter crust tone for visibility */
+.drawer__panelHeaderClose:hover,
+.drawer__panelHeaderClose:hover svg {
+  color: color-mix(in srgb, var(--ctp-crust) 80%, white) !important;
+  fill:  color-mix(in srgb, var(--ctp-crust) 80%, white) !important;
+}
+
+
 
 /* ===== Mega-menu / Drawer ===== */
 [data-testid="drawer"], .drawer, .drawer__panel, .drawer__panelContent,
@@ -391,14 +583,14 @@ a[data-testid="edit-button"]:hover { background-color: #6B3FAA !important; }
 [data-testid="awards"] .ipc-metadata-list,
 [data-testid="awards"] .ipc-metadata-list__item,
 [data-testid="awards"] .ipc-inline-list {
-  background: var(--ctp-base) !important; color: var(--ctp-text) !important; border: none !important;
+  background: var(--ctp-surface0) !important; color: var(--ctp-text) !important; border: none !important;
 }
 [data-testid="awards"] a,
 [data-testid="awards"] .ipc-metadata-list-item__list-content-item { color: var(--ctp-text) !important; }
 [data-testid="awards"] a:hover { color: var(--ctp-blue) !important; }
 [data-testid="awards"] svg { fill: var(--ctp-text) !important; }
 [data-testid="awards"] .ipc-inline-list--show-dividers li { border-color: rgba(255,255,255,.15) !important; }
-[data-testid="awards"] { border: 1px solid #f5c518 !important; border-radius: 4px !important; overflow: hidden; }
+[data-testid="awards"] { border: 1px solid var(--ipt-accent1-bg) !important; border-radius: 8px !important; overflow: hidden; }
 
 /* ===== Advanced Search header accents ===== */
 [data-testid="advanced-search-section"] .sc-f7740eed-0 span {
@@ -460,6 +652,21 @@ a[data-testid="edit-button"]:hover { background-color: #6B3FAA !important; }
 }
 .searchCatSelector-menu .ipc-list__item { background: transparent !important; color: var(--ctp-text) !important; }
 .searchCatSelector-menu .ipc-list__item:hover { background: var(--ctp-surface1) !important; color: var(--ctp-text) !important; }
+
+/* Search suggestions background - match language selector */
+.react-autosuggest__suggestions-list,
+.react-autosuggest__suggestions-list .ipc-list__item,
+.react-autosuggest__suggestions-list .ipc-list-divider,
+.react-autosuggest__suggestions-list .ipc-menu__items {
+  background-color: var(--ctp-crust) !important;
+  border: none !important;
+  color: var(--ctp-text) !important;
+}
+
+/* Hover state */
+.react-autosuggest__suggestions-list .ipc-list__item:hover {
+  background-color: var(--ctp-surface0) !important;
+}
 
 /* ===== Section headers (e.g., Awards & recognition) ===== */
 .sc-c70bb40c-0.kGJlDJ { color: var(--ctp-mauve) !important; font-weight: 600 !important; }
@@ -553,7 +760,6 @@ a[data-testid="edit-button"]:hover { background-color: #6B3FAA !important; }
 .ipc-textinput__field-container,
 .ipc-textfield__input,
 .ipc-textfield__input-container {
-  border: 6px !important;              /* keeps IMDb layout happy while removing glow */
   box-shadow: none !important;
   background-color: var(--ctp-surface0) !important;
   color: var(--ctp-text) !important;
@@ -571,6 +777,18 @@ a[data-testid="edit-button"]:hover { background-color: #6B3FAA !important; }
 .sc-12f18b2d-4 * , .sc-ebdd2c78-2 * ,
 label.ipc-boolean-input__label, .ipc-boolean-input__label, label {
   color: var(--ctp-subtext1) !important;
+}
+
+/* Communications/settings headline – make text light */
+.sc-68472e1e-0.hrSfsO {
+  color: var(--ctp-text) !important;
+  -webkit-text-fill-color: var(--ctp-text) !important; /* WebKit fix */
+}
+
+/* More robust fallback if the hash changes but keeps the "sc-*-0" pattern */
+div[class^="sc-"][class$="-0"].hrSfsO {
+  color: var(--ctp-text) !important;
+  -webkit-text-fill-color: var(--ctp-text) !important;
 }
 
 /* ===== Reactions/likes ===== */
@@ -625,5 +843,720 @@ label.ipc-boolean-input__label, .ipc-boolean-input__label, label {
 
 /* Example: inline AniDB icon margin-left when embedded directly */
 img[alt="AniDB"][style*="margin-left"] { margin-left: 11px !important; }
+
+/* ===== FIX PACK — cast header counts, character color, filters, details labels, info icon ===== */
+
+/* Section counters (Top cast / Episodes / Videos) */
+:is([data-testid="title-cast-header"], .ipc-title.ipc-title--section-title) .ipc-title__subtext,
+[data-testid="hero-subnav-bar-series-episode-count"] {
+  color: var(--ctp-rosewater) !important;
+  font-weight: 700 !important;
+}
+
+/* Cast list – character name styled like the year */
+section[data-testid="title-cast"] .title-cast-item__characters-list a.title-cast-item__char,
+section[data-testid="title-cast"] .title-cast-item__characters-list .sc-10bde568-4 {
+  color: var(--ctp-subtext1) !important;
+  font-weight: 500 !important;
+}
+section[data-testid="title-cast"] .title-cast-item__characters-list a.title-cast-item__char:hover {
+  color: var(--ctp-lavender) !important;
+}
+
+/* Episodes pills (“17 eps/episodes”) – look like links (no boxes) */
+section[data-testid="title-cast"] [data-testid^="title-cast-item__eps-toggle"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  color: var(--ctp-blue) !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+}
+section[data-testid="title-cast"] [data-testid^="title-cast-item__eps-toggle"]:hover {
+  color: var(--ctp-lavender) !important;
+}
+
+/* Browse Episodes chips (tiny filters) – links, no boxes */
+:is([aria-label*="BROWSE EPISODES"], [aria-label*="Browse episodes"]) .ipc-chip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  color: var(--ctp-blue) !important;
+  font-weight: 600 !important;
+}
+:is([aria-label*="BROWSE EPISODES"], [aria-label*="Browse episodes"]) .ipc-chip:hover {
+  color: var(--ctp-lavender) !important;
+}
+
+/* keep the big “Episode guide” button intact */
+a[href*="/episodes"] .ipc-btn,
+a[href*="/episodes?"] .ipc-btn {
+  background: var(--ctp-surface1) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+}
+
+/* “Expand below” / “All credits” – plain links */
+a:where(:not(.ipc-btn)):is([href*="expand"], [href*="credits"]),
+button:where([class*="expand"], [data-testid*="expand"]) {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  color: var(--ctp-blue) !important;
+  font-weight: 600 !important;
+}
+a:where(:not(.ipc-btn)):is([href*="expand"], [href*="credits"]):hover,
+button:where([class*="expand"], [data-testid*="expand"]):hover {
+  color: var(--ctp-lavender) !important;
+}
+
+/* Filmography rows – keep the info “i” dot spaced and vertically centered */
+:is(.ipc-metadata-list__item, .ipc-list__item) { display:flex !important; align-items:center !important; }
+:is(.ipc-metadata-list__item, .ipc-list__item) > *:last-child { margin-left:auto !important; }
+:is(.ipc-metadata-list__item, .ipc-list__item) .ipc-icon--info-outline { margin-right:10px !important; opacity:.9 !important; }
+
+/* Medium labels like “TV Series”, “Podcast Series” – higher contrast */
+.cli-title-metadata .ipc-inline-list__item,
+.cli-title-metadata-item,
+[class*="metadata"] .ipc-inline-list__item {
+  color: var(--ctp-subtext1) !important;
+  font-weight: 600 !important;
+}
+
+/* Keep right sidebar small cards (Video/Photo tiles) visible like original */
+[data-testid*="sidebar"] :is(.ipc-card, .ipc-slate-card, .ipc-poster-card) {
+  display:block !important;
+  background: var(--ctp-surface0) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+}
+/* ===== FIX: Details labels (give them an accent color) ===== */
+section[data-testid="Details"] .ipc-metadata-list-item__label,
+section[id*="Details"] .ipc-metadata-list-item__label {
+  color: var(--ctp-lavender) !important;   /* highlight like original */
+  font-weight: 700 !important;
+  margin-right: 6px !important;
+}
+
+/* Title page — Primary Credits (Director/Writer/Stars) labels = Details labels */
+[data-testid="title-pc-list"] .ipc-metadata-list-item__label,
+[data-testid="title-pc-list"] .ipc-metadata-list-item__label.ipc-btn--not-interactable,
+[data-testid="title-pc-list"] .ipc-metadata-list-item__label--link,
+[data-testid="title-pc-list"] a.ipc-metadata-list-item__label--link,
+[data-testid="title-pc-list"] a.ipc-metadata-list-item__label--link:visited {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important; /* Safari */
+  font-weight: 700 !important;
+  margin-right: 6px !important;
+}
+
+/* Cast footer list: labels same style as Details (lavender + bold) */
+section[data-testid="title-cast"] 
+  .ipc-metadata-list--dividers-all 
+  .ipc-metadata-list-item__label,
+section[data-testid="title-cast"] 
+  .ipc-metadata-list--dividers-all 
+  .ipc-metadata-list-item__label.ipc-metadata-list-item__label--link,
+section[data-testid="title-cast"] 
+  .ipc-metadata-list--dividers-all 
+  .ipc-btn--not-interactable.ipc-metadata-list-item__label {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important; /* Safari */
+  font-weight: 700 !important;
+  margin-right: 6px !important; /* match Details spacing */
+}
+
+/* Box office: labels same as Details (lavender + bold) */
+[data-testid="title-boxoffice-section"]
+  .ipc-metadata-list-item__label,
+[data-testid="title-boxoffice-section"]
+  .ipc-metadata-list-item__label.ipc-metadata-list-item__label--link,
+[data-testid="title-boxoffice-section"]
+  .ipc-btn--not-interactable.ipc-metadata-list-item__label {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important; /* Safari */
+  font-weight: 700 !important;
+  margin-right: 6px !important;
+}
+
+/* Box office: values (numbers, dates) slightly softer */
+[data-testid="title-boxoffice-section"]
+  .ipc-metadata-list-item__list-content-item,
+[data-testid="title-boxoffice-section"]
+  .ipc-metadata-list-item__list-content-item a,
+[data-testid="title-boxoffice-section"]
+  .ipc-metadata-list-item__list-content-item.ipc-btn--not-interactable {
+  color: var(--ctp-subtext1) !important;
+  -webkit-text-fill-color: var(--ctp-subtext1) !important;
+}
+
+/* Keep link-labels lavender even after visit */
+section[data-testid="title-cast"] 
+  .ipc-metadata-list--dividers-all 
+  .ipc-metadata-list-item__label--link:visited {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
+}
+
+/* Technical specs — labels = Details labels */
+section[data-testid*="Tech"] .ipc-metadata-list-item__label,
+li[data-testid^="title-techspec_"] .ipc-metadata-list-item__label,
+li[data-testid^="title-techspec_"] a.ipc-metadata-list-item__label--link {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important; /* Safari */
+  font-weight: 700 !important;
+  margin-right: 6px !important;
+}
+
+/* "Crazy credits" label-link: peach + lavender hover */
+a.ipc-metadata-list-item__label--link[href*="/crazycredits"],
+a.ipc-metadata-list-item__label--link[href*="/crazycredits"]:visited {
+  color: var(--ctp-peach) !important;
+  -webkit-text-fill-color: var(--ctp-peach) !important;
+}
+
+a.ipc-metadata-list-item__label--link[href*="/crazycredits"]:hover,
+a.ipc-metadata-list-item__label--link[href*="/crazycredits"]:focus {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
+}
+
+/* Add-to-Watchlist: make the “+” icon the same blue as the text */
+button[aria-label="Add to Watchlist"] .ipc-btn__icon--pre.ipc-icon--add,
+button[aria-label="Add to Watchlist"] svg.ipc-icon--add,
+button[aria-label="Add to Watchlist"] svg.ipc-icon--add path,
+a[aria-label="Add to Watchlist"] .ipc-btn__icon--pre.ipc-icon--add,
+a[aria-label="Add to Watchlist"] svg.ipc-icon--add,
+a[aria-label="Add to Watchlist"] svg.ipc-icon--add path {
+  color: var(--ctp-blue) !important;
+  fill: var(--ctp-blue) !important;
+}
+
+/* Add space between "Stars" label and first name */
+.ipc-metadata-list-item__label {
+  margin-right: 6px !important;
+}
+
+/* Border around the entire list */
+[data-testid="list-page-mc-list-content"] {
+  border: 1px solid var(--ctp-surface2) !important;
+}
+
+/* Match "Add episode" styling for the two buttons above */
+a[data-testid="list-page-atf-add-to-list-btn"],
+a.imdb-header__app-button {
+  background: var(--ctp-mauve) !important;
+  color: var(--ctp-crust) !important;
+  border-color: var(--ctp-mauve) !important;
+}
+
+/* Icons inside those buttons */
+a[data-testid="list-page-atf-add-to-list-btn"] .ipc-icon,
+a.imdb-header__app-button .ipc-icon {
+  color: var(--ctp-crust) !important;
+  fill: var(--ctp-crust) !important;
+}
+
+/* Hover / focus to match "Add episode" */
+a[data-testid="list-page-atf-add-to-list-btn"]:hover,
+a[data-testid="list-page-atf-add-to-list-btn"]:focus,
+a.imdb-header__app-button:hover,
+a.imdb-header__app-button:focus {
+  background-color: #b689f4 !important; /* same hover as your Add/Edit buttons */
+  color: var(--ctp-crust) !important;
+}
+
+/* Keep text consistent even if link is visited */
+a[data-testid="list-page-atf-add-to-list-btn"]:visited,
+a.imdb-header__app-button:visited {
+  color: var(--ctp-crust) !important;
+}
+
+/* Remove any default top borders on list items */
+[data-testid="list-page-mc-list-content"]
+  .ipc-metadata-list--dividers-between
+  > li.ipc-metadata-list-summary-item {
+  border-top: none !important;
+}
+
+/* Draw the divider UNDER the icons row:
+   when a result_box_* div is followed by an li, put the line on that li’s top */
+[data-testid="list-page-mc-list-content"]
+  .ipc-metadata-list--dividers-between
+  > [class^="result_box_"] + li.ipc-metadata-list-summary-item {
+  border-top: 1px solid var(--ctp-surface2) !important;
+  margin-top: 5px !important;
+
+}
+
+/* (optional) make sure the injected box spans full width */
+[data-testid="list-page-mc-list-content"]
+  .ipc-metadata-list--dividers-between
+  > [class^="result_box_"] {
+  display:block !important;
+}
+
+/* Date text on episode cards (make it light) */
+.sc-c5b37498-12.esCmc { 
+  color: var(--ctp-subtext1) !important;
+}
+
+/* Extra-robust fallback for other builds of the card */
+[data-testid$="-card"] [class*="day"],
+[data-testid$="-card"] [class*="date"],
+[data-testid$="-card"] time {
+  color: var(--ctp-subtext1) !important;
+}
+
+/* Unify watchlist ribbon colors (all variants, incl. on-image) */
+.ipc-watchlist-ribbon .ipc-watchlist-ribbon__bg .ipc-watchlist-ribbon__bg-ribbon { 
+  fill: var(--ctp-surface1) !important; 
+}
+.ipc-watchlist-ribbon .ipc-watchlist-ribbon__bg .ipc-watchlist-ribbon__bg-hover  { 
+  fill: var(--ctp-surface2) !important; 
+}
+.ipc-watchlist-ribbon .ipc-watchlist-ribbon__bg .ipc-watchlist-ribbon__bg-shadow { 
+  fill: var(--ctp-surface2) !important; 
+}
+
+/* Keep the +/- or ✓ icon readable */
+.ipc-watchlist-ribbon .ipc-watchlist-ribbon__icon .ipc-icon {
+  color: var(--ctp-text) !important;
+  fill:  var(--ctp-text) !important;
+}
+
+/* Avoid blending issues on posters */
+.ipc-watchlist-ribbon--onImage { 
+  mix-blend-mode: normal !important; 
+}
+
+/* Fallback if SVG polygons lack specific classes (optional) */
+.ipc-watchlist-ribbon svg polygon { 
+  fill: var(--ctp-surface1) !important; 
+}
+
+/* Make the little plus/check icon readable on dark themes */
+.ipc-watchlist-ribbon__icon .ipc-icon {
+  color: var(--ctp-text) !important;
+  fill: var(--ctp-text) !important;
+}
+
+/* Thumb-up (likes) icon — make it light */
+.ipc-reaction-summary__likes-icon,
+svg.ipc-icon--thumb-up {
+  color: var(--ctp-subtext1) !important;  /* choose var(--ctp-text) if you want brighter */
+  fill: currentColor !important;
+}
+
+/* Extra safety in case the <path> carries its own fill */
+.ipc-reaction-summary__likes-icon path,
+svg.ipc-icon--thumb-up path {
+  fill: currentColor !important;
+}
+
+/* (optional) highlight on hover/active */
+[role="button"]:hover .ipc-reaction-summary__likes-icon,
+[aria-pressed="true"] .ipc-reaction-summary__likes-icon {
+  color: var(--ctp-text) !important;
+}
+
+/* Fix double lines in "dividers-all" metadata lists */
+.ipc-metadata-list--dividers-all .ipc-metadata-list__item {
+  border-bottom: 0 !important;                 /* kill your global bottom line */
+}
+
+.ipc-metadata-list--dividers-all .ipc-metadata-list__item + .ipc-metadata-list__item {
+  border-top: 1px solid var(--ctp-surface2) !important;  /* single divider between rows */
+}
+
+/* No extra line at the very top/bottom */
+.ipc-metadata-list--dividers-all .ipc-metadata-list__item:first-child { border-top: 0 !important; }
+.ipc-metadata-list--dividers-all .ipc-metadata-list__item:last-child  { border-bottom: 0 !important; }
+
+/* Storyline labels = Details labels (same color and weight) */
+section[data-testid="Storyline"] .ipc-metadata-list-item__label,
+section[id*="Storyline"] .ipc-metadata-list-item__label,
+.ipc-metadata-list__item[data-testid^="storyline-"] .ipc-metadata-list-item__label {
+  color: var(--ctp-lavender) !important;
+  font-weight: 700 !important;
+}
+
+/* If they’re links, force the same tone for default/visited states */
+section[data-testid="Storyline"] .ipc-metadata-list-item__label.ipc-metadata-list-item__label--link,
+section[data-testid="Storyline"] .ipc-metadata-list-item__label.ipc-metadata-list-item__label--link:visited {
+  color: var(--ctp-lavender) !important;
+}
+
+/* Episode cards – force light text inside the card */
+[data-testid="episodes-top-rated-card"] .ipc-list-card__content,
+[data-testid="episodes-top-rated-card"] .ipc-list-card__content a,
+[data-testid="episodes-top-rated-card"] .ipc-list-card__content .ipc-inline-list__item {
+  color: var(--ctp-text) !important;
+}
+
+/* Title line (S4.E19 · Never Let You Go) */
+[data-testid="episodes-top-rated-card"] .sc-72ec7c2e-6 .ipc-inline-list__item {
+  color: var(--ctp-text) !important;
+}
+
+/* Description + date a bit softer */
+[data-testid="episodes-top-rated-card"] .sc-72ec7c2e-7,
+[data-testid="episodes-top-rated-card"] .sc-72ec7c2e-10 {
+  color: var(--ctp-subtext1) !important;
+}
+
+/* Optional: make any stray text in actions area light too */
+[data-testid="episodes-top-rated-card"] .ipc-list-card__actions {
+  color: var(--ctp-text) !important;
+}
+  
+/* Values stay slightly dimmer for contrast */
+section[data-testid="Details"] .ipc-metadata-list-item__list-content-item,
+section[id*="Details"] .ipc-metadata-list-item__list-content-item,
+section[data-testid="Details"] .ipc-metadata-list-item__list-content-item a,
+section[id*="Details"] .ipc-metadata-list-item__list-content-item a {
+  color: var(--ctp-subtext1) !important;
+}
+
+/* ===== FIX: Cast colors (actor vs character vs year) ===== */
+section[data-testid="title-cast"] a[data-testid="title-cast-item__actor"]{
+  color: var(--ctp-mauve) !important;       /* actor = main text color */
+  font-weight: 700 !important;
+}
+section[data-testid="title-cast"] a[data-testid="title-cast-item__actor"]:hover{
+  color: var(--ctp-lavender) !important;
+}
+
+/* character link uses a softer color like the year */
+section[data-testid="title-cast"] .title-cast-item__characters-list a{
+  color: var(--ctp-subtext1) !important;
+  font-weight: 500 !important;
+}
+section[data-testid="title-cast"] .title-cast-item__characters-list a:hover{
+  color: var(--ctp-lavender) !important;
+}
+
+/* year dot (• 2020) readable */
+section[data-testid="title-cast"] .sc-755c335c-2 > span{
+  color: var(--ctp-subtext1) !important;
+}
+
+/* make the small episode pills look like inline links (no box)
+   – keeps only the right-hand “Episode guide” button boxed */
+section[data-testid="title-cast"] [data-testid^="title-cast-item__eps-toggle"]{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  color: var(--ctp-blue) !important;
+  font-weight: 600 !important;
+}
+section[data-testid="title-cast"] [data-testid^="title-cast-item__eps-toggle"]:hover{
+  color: var(--ctp-lavender) !important;
+}
+
+/* Profile: "Welcome…" banner */
+[data-testid="user-legacy-alert"]{
+  background: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ipt-accent1-bg) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+[data-testid="user-legacy-alert"] > * { background: transparent !important; } /* no nested dark panels */
+[data-testid="user-legacy-alert"] .sc-f912989d-3 { color: var(--ctp-text) !important; } /* title */
+[data-testid="user-legacy-alert"] .sc-f912989d-4 { color: var(--ctp-subtext1) !important; } /* body */
+
+
+/* Section headers + counters */
+.ipc-title--section-title .ipc-title__text { color: var(--ctp-text) !important; }
+.ipc-title--section-title .ipc-title__subtext { color: var(--ctp-rosewater) !important; font-weight: 700 !important; }
+
+/* “Your X are public. Edit” rows */
+[data-testid$="-privacy"] span { color: var(--ctp-subtext1) !important; }
+[data-testid$="-privacy"] .ipc-link { color: var(--ctp-blue) !important; }
+
+/* Check-ins list */
+[data-testid="user-check_in-list-item"] .sc-e77a4cfa-3 { color: var(--ctp-text) !important; } /* title */
+[data-testid="user-check_in-list-item"] .sc-e77a4cfa-4 { color: var(--ctp-subtext1) !important; } /* date */
+
+/* Badges shoveler captions */
+[data-testid="bdg-shoveler"] .sc-bd79f1f-3 { color: var(--ctp-text) !important; }
+[data-testid="bdg-shoveler"] .sc-bd79f1f-4 { color: var(--ctp-subtext1) !important; }
+
+/* Poster-card titles */
+.ipc-poster-card__title { color: var(--ctp-text) !important; }
+
+/* Baseline: main column text */
+[data-testid="userProfilePage_maincolumn"] { color: var(--ctp-text) !important; }
+
+/* Type tag ("Short", "TV Series", etc.) */
+.ipc-primary-image-list-card__title-type {
+  color: var(--ctp-subtext1) !important; /* lighter than body text */
+}
+
+/* ---------- Filmography accordions: borders + bottom divider ---------- */
+
+/* keep only the bottom header divider (soft) */
+.date-unrel-credits-accordion .ipc-accordion__item__divider--post-header,
+.date-credits-accordion      .ipc-accordion__item__divider--post-header {
+  display: block !important;
+  height: 1px !important;
+  border: 0 !important;
+  background: var(--ctp-surface1) !important;
+  opacity: .7 !important;
+  margin: 0 !important;
+}
+
+/* hide the top divider and the post-content divider */
+.date-unrel-credits-accordion .ipc-accordion__item__divider--pre-header,
+.date-credits-accordion      .ipc-accordion__item__divider--pre-header,
+.date-unrel-credits-accordion .ipc-accordion__item__divider--post-content,
+.date-credits-accordion      .ipc-accordion__item__divider--post-content {
+  display: none !important;
+}
+
+/* subtle border around the whole accordion block */
+.date-unrel-credits-accordion.ipc-accordion--pageSection,
+.date-credits-accordion.ipc-accordion--pageSection {
+  box-shadow: inset 0 0 0 1px var(--ctp-surface2) !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+}
+
+/* lighter item dividers */
+.date-unrel-credits-accordion .ipc-metadata-list--dividers-between > li,
+.date-credits-accordion      .ipc-metadata-list--dividers-between > li {
+  border-color: var(--ctp-surface1) !important;
+}
+
+/* Accordion headers: remove white background + shadow, keep text light */
+.date-unrel-credits-accordion .ipc-accordion__item__header,
+.date-credits-accordion      .ipc-accordion__item__header,
+.date-unrel-credits-accordion .ipc-accordion__item__header-shadow,
+.date-credits-accordion      .ipc-accordion__item__header-shadow,
+.date-unrel-credits-accordion .ipc-accordion__item__header-shadow-cover,
+.date-credits-accordion      .ipc-accordion__item__header-shadow-cover,
+.date-unrel-credits-accordion .ipc-accordion__item__label,
+.date-credits-accordion      .ipc-accordion__item__label {
+  background: transparent !important;
+  color: var(--ctp-text) !important;
+}
+
+/* The “Video Game / TV Series” token next to the stars */
+.date-credits-accordion .ipc-metadata-list-summary-item__tc > div > span + span,
+.date-unrel-credits-accordion .ipc-metadata-list-summary-item__tc > div > span + span,
+.date-credits-accordion .ipc-metadata-list-summary-item__tc > div > span:last-child,
+.date-unrel-credits-accordion .ipc-metadata-list-summary-item__tc > div > span:last-child {
+  color: var(--ctp-subtext1) !important;
+  -webkit-text-fill-color: var(--ctp-subtext1) !important;
+}
+
+/* The role “pill” (e.g., Laura) inside the credits list */
+.date-credits-accordion .credit-text-list .ipc-inline-list__item,
+.date-unrel-credits-accordion .credit-text-list .ipc-inline-list__item,
+.date-credits-accordion .credit-text-list .ipc-btn--not-interactable,
+.date-unrel-credits-accordion .credit-text-list .ipc-btn--not-interactable {
+  color: var(--ctp-subtext1) !important;
+  -webkit-text-fill-color: var(--ctp-subtext1) !important;
+}
+
+/* Ensure the cmHZoJ wrapper doesn’t re-darken the text */
+.date-credits-accordion .ipc-metadata-list-summary-item__tc .cmHZoJ,
+.date-unrel-credits-accordion .ipc-metadata-list-summary-item__tc .cmHZoJ {
+  color: var(--ctp-subtext1) !important;
+}
+
+/* Cast qualifiers like (Japanese version), (voice) — light text */
+section[data-testid="title-cast"]
+  .title-cast-item__characters-list
+  .ipc-inline-list__item > span {
+  color: var(--ctp-subtext1) !important;
+  -webkit-text-fill-color: var(--ctp-subtext1) !important; /* Safari/WebKit */
+}
+
+/* Extra fallback: any direct span inside the inline cast item */
+section[data-testid="title-cast"] .ipc-inline-list__item > span {
+  color: var(--ctp-subtext1) !important;
+  -webkit-text-fill-color: var(--ctp-subtext1) !important;
+}
+
+/* ---------- Filmography text colors (make everything light) ---------- */
+
+/* baseline text color inside the box */
+.date-unrel-credits-accordion,
+.date-credits-accordion {
+  color: var(--ctp-text) !important;
+}
+
+/* titles (links) */
+.date-unrel-credits-accordion a.ipc-metadata-list-summary-item__t,
+.date-credits-accordion      a.ipc-metadata-list-summary-item__t {
+  color: var(--ctp-text) !important;
+}
+
+/* small metadata: “TV Series”, roles, years, episode counts, etc. */
+.date-unrel-credits-accordion .ipc-metadata-list-summary-item__stl,
+.date-unrel-credits-accordion .ipc-metadata-list-summary-item__tl,
+.date-unrel-credits-accordion .ipc-metadata-list-summary-item__ctl,
+.date-unrel-credits-accordion .ipc-metadata-list-summary-item__cbl,
+.date-unrel-credits-accordion .credit-text-list,
+.date-credits-accordion      .ipc-metadata-list-summary-item__stl,
+.date-credits-accordion      .ipc-metadata-list-summary-item__tl,
+.date-credits-accordion      .ipc-metadata-list-summary-item__ctl,
+.date-credits-accordion      .ipc-metadata-list-summary-item__cbl,
+.date-credits-accordion      .credit-text-list {
+  color: var(--ctp-subtext1) !important;
+}
+
+/* section labels (“Upcoming”, “Previous”) + counters */
+.date-unrel-credits-accordion .ipc-accordion__item__label,
+.date-credits-accordion      .ipc-accordion__item__label {
+  color: var(--ctp-text) !important;
+}
+.date-unrel-credits-accordion .ipc-accordion__item__label .credits-total,
+.date-credits-accordion      .ipc-accordion__item__label .credits-total {
+  color: var(--ctp-rosewater) !important;
+  font-weight: 700 !important;
+}
+
+/* rating number next to the star */
+.date-unrel-credits-accordion .ipc-rating-star--rating,
+.date-credits-accordion      .ipc-rating-star--rating {
+  color: var(--ctp-rosewater) !important; /* or var(--ctp-yellow) if you prefer */
+  fill: currentColor !important;
+}
+
+/* “Released/Completed” tiny links */
+.date-unrel-credits-accordion .ipc-metadata-list-summary-item__li--link,
+.date-credits-accordion      .ipc-metadata-list-summary-item__li--link {
+  color: var(--ctp-blue) !important;
+}
+
+/* icon buttons (“More” info) */
+.date-unrel-credits-accordion .ipc-icon-button .ipc-icon,
+.date-credits-accordion      .ipc-icon-button .ipc-icon {
+  color: var(--ctp-subtext1) !important;
+}
+
+/* gentle hover so the border still shows */
+.ipc-metadata-list-summary-item.ipc-metadata-list-summary-item--click:hover {
+  background: var(--ctp-surface0) !important;
+}
+
+/* ---- Accordion headers: kill white background ---- */
+.date-unrel-credits-accordion .ipc-accordion__item__header,
+.date-credits-accordion      .ipc-accordion__item__header,
+.date-unrel-credits-accordion .ipc-accordion__item__header-shadow,
+.date-credits-accordion      .ipc-accordion__item__header-shadow,
+.date-unrel-credits-accordion .ipc-accordion__item__header-shadow-cover,
+.date-credits-accordion      .ipc-accordion__item__header-shadow-cover,
+.date-unrel-credits-accordion .ipc-accordion__item__label,
+.date-credits-accordion      .ipc-accordion__item__label {
+  background: transparent !important;     /* remove the white bar */
+  color: var(--ctp-text) !important;      /* header text color */
+}
+
+/* Chevron in the header */
+.date-unrel-credits-accordion .ipc-accordion__item__chevron .ipc-icon,
+.date-credits-accordion      .ipc-accordion__item__chevron .ipc-icon {
+  color: var(--ctp-subtext1) !important;
+  fill: currentColor !important;
+}
+
+/* ---- Tiny metadata tags: ensure light text ---- */
+/* e.g., “TV Series”, “Video Game”, years, episode counts, etc. */
+.date-unrel-credits-accordion .ipc-metadata-list-summary-item__li,
+.date-credits-accordion      .ipc-metadata-list-summary-item__li,
+.date-unrel-credits-accordion .ipc-btn--not-interactable,
+.date-credits-accordion      .ipc-btn--not-interactable,
+.date-unrel-credits-accordion .ipc-metadata-list-summary-item__stl,
+.date-credits-accordion      .ipc-metadata-list-summary-item__stl,
+.date-unrel-credits-accordion .ipc-metadata-list-summary-item__tl,
+.date-credits-accordion      .ipc-metadata-list-summary-item__tl,
+.date-unrel-credits-accordion .ipc-metadata-list-summary-item__ctl,
+.date-credits-accordion      .ipc-metadata-list-summary-item__ctl,
+.date-unrel-credits-accordion .ipc-metadata-list-summary-item__cbl,
+.date-credits-accordion      .ipc-metadata-list-summary-item__cbl {
+  color: var(--ctp-subtext1) !important;  /* switch from black to light */
+}
+
+/* Global: every “+” icon stays crust everywhere */
+.ipc-btn__icon.ipc-icon--add,
+.ipc-icon.ipc-icon--add,
+svg.ipc-icon--add,
+svg.ipc-icon--add > path {
+  color: var(--ctp-crust) !important;
+  fill:  var(--ctp-crust) !important;
+}
+
+/* =========================
+   WHAT'S ON – NavigationWidget
+   Match site background + light text/icons
+   ========================= */
+
+/* whole widget panel uses site background */
+[data-testid="symphony-NavigationWidget"] {
+  background: var(--ctp-base) !important;
+  color: var(--ctp-text) !important;
+}
+
+/* kill any white/alt backgrounds in inner wrappers */
+[data-testid="symphony-NavigationWidget"] .ipc-page-section,
+[data-testid="symphony-NavigationWidget"] .ipc-tabs,
+[data-testid="symphony-NavigationWidget"] .ipc-tab,
+[data-testid="symphony-NavigationWidget"] .ipc-title,
+[data-testid="symphony-NavigationWidget"] .ipc-title-link-wrapper {
+  background: transparent !important;
+  color: var(--ctp-text) !important;
+}
+
+/* Hero widget: caption below posters (force light color) */
+[data-testid="symphony-HeroWidget"] .ipc-poster + a,
+[data-testid="symphony-HeroWidget"] .ipc-poster + a:visited,
+[data-testid="symphony-HeroWidget"] .ipc-poster + a:hover,
+[data-testid="symphony-HeroWidget"] .ipc-poster + a .sc-6fdee83c-3 {
+  color: var(--ctp-text) !important;                   /* light */
+  -webkit-text-fill-color: var(--ctp-text) !important; /* Safari/WebKit */
+  text-decoration: none !important;                    /* optional: no underline */
+}
+
+/* Share menu: make all items (incl. Copy link) use the same colors */
+.ipc-list.sharemenu-list,
+.ipc-list.sharemenu-list .ipc-list__item {
+  background-color: var(--ctp-crust) !important;
+  color: var(--ctp-text) !important;
+}
+
+/* "Cast & crew" — peach normal, lavender no hover */
+a.ipc-link[href*="/fullcredits/?ref_=tt_ov_ql_1"],
+a.ipc-link[href*="/fullcredits/?ref_=tt_ov_ql_1"]:visited {
+  color: var(--ctp-peach) !important;
+  -webkit-text-fill-color: var(--ctp-peach) !important; /* Safari */
+}
+
+a.ipc-link[href*="/fullcredits/?ref_=tt_ov_ql_1"]:hover,
+a.ipc-link[href*="/fullcredits/?ref_=tt_ov_ql_1"]:focus {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important; /* Safari */
+}
+
+/* Hover/focus row state */
+.ipc-list.sharemenu-list .ipc-list__item:hover,
+.ipc-list.sharemenu-list .ipc-list__item:focus {
+  background: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+}
+
+[data-testid="hero-subnav-bar-topic-links"] .ipc-link:hover,
+[data-testid="hero-subnav-bar-topic-links"] .ipc-link:focus {
+  color: var(--ctp-lavender) !important;             /* hover accent */
+  text-decoration: underline !important;             /* optional */
+}
+
+/* keep the tiny dividers soft */
+[data-testid="hero-subnav-bar-topic-links"] .ipc-inline-list__item {
+  border-color: var(--ctp-surface1) !important;
+}
 
 } /* end @-moz-document */
