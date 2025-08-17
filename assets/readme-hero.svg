@@ -19,7 +19,7 @@
     </filter>
     <style>
       .title{font:800 42px/1.2 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif;fill:#cdd6f4}
-      .subtitle{font:500 18px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif;fill:#a6adc8}
+      .subtitle{font:500 18px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif;fill:#bac2de}
       .pill{font:800 16px/1 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif}
       .cta{font:900 24px/1 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif;letter-spacing:.2px}
       .handle{font:600 14px/1 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif;fill:#7f849c}
@@ -35,14 +35,15 @@
   <circle cx="1050" cy="300" r="160" fill="#89b4fa" opacity="0.12" filter="url(#soft)"/>
   <circle cx="750" cy="60" r="120" fill="#fab387" opacity="0.10" filter="url(#soft)"/>
 
-  <!-- concentric rings (top-right) -->
-  <g transform="translate(1100,110)">
+  <!-- concentric rings (top-right, fully visible with margin) -->
+  <!-- outer radius = 82, stroke-width = 8 (adds 4), margin ~= 8 => center = (1200 - 94, 0 + 94) -->
+  <g transform="translate(1106,94)">
     <circle r="48" fill="none" stroke="url(#ring)" stroke-width="12" opacity=".95"/>
     <circle r="82" fill="none" stroke="url(#ring)" stroke-width="8" opacity=".25"/>
   </g>
 
-  <!-- header (moved up) -->
-  <g transform="translate(0,-60)">
+  <!-- header (slightly higher) -->
+  <g transform="translate(0,-72)">
     <text x="80" y="160" class="title">BlackSpirits — UserScripts &amp; UserStyles</text>
     <text x="80" y="196" class="subtitle">
       <tspan x="80" dy="0">A personal collection of UserScripts (.user.js) and UserStyles (.user.css)</tspan>
@@ -58,15 +59,16 @@
     </g>
   </g>
 
-  <!-- CTA (centered text, clickable) -->
+  <!-- CTA (nudged up a bit) -->
   <a href="https://github.com/BlackSpirits/UserScripts/stargazers" target="_blank" rel="noopener noreferrer">
-    <g transform="translate(650,230)" filter="url(#btnshadow)" style="cursor:pointer">
-      <!-- tight box -->
-      <rect x="13" y="0" rx="18" ry="18" width="338" height="52" fill="none" stroke="url(#ring)" stroke-width="2"/>
-      <rect x="14" y="1" rx="16" ry="16" width="336" height="50" fill="#cdd6f4" opacity=".08"/>
-      <!-- perfectly centered phrase (centerX = 13 + 338/2 = 182) -->
-      <text x="182" y="34" text-anchor="middle" class="cta" fill="url(#ring)">
-        <tspan>Found it useful? </tspan><tspan>★</tspan><tspan> Star it</tspan>
+    <g transform="translate(650,220)" filter="url(#btnshadow)" style="cursor:pointer">
+      <rect x="13" y="0" rx="18" ry="18" width="360" height="52" fill="none" stroke="url(#ring)" stroke-width="2"/>
+      <rect x="14" y="1" rx="16" ry="16" width="358" height="50" fill="#cdd6f4" opacity=".08"/>
+      <!-- geometric center: 13 + 360/2 = 193 -->
+      <text x="193" y="34" text-anchor="middle" class="cta" fill="url(#ring)">
+        <tspan>Found it useful?</tspan>
+        <tspan dx="10">★</tspan>
+        <tspan dx="10">Star it</tspan>
       </text>
     </g>
   </a>
