@@ -147,4 +147,4 @@ See **[Releases](https://github.com/BlackSpirits/UserScripts/releases)** for not
 ## 📜 License
 
 Released under the [MIT License](./LICENSE).  
-© 2025 BlackSpirits.
+© 2025 BlackSpirits.<p align="right"><a href="#readme">↑ Back to top</a></p>
