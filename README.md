@@ -1,5 +1,3 @@
-# 🖥️ BlackSpirits — UserScripts & UserStyles
-
 <!-- Hero/banner -->
 <p align="center">
   <a href="https://github.com/BlackSpirits/UserScripts/stargazers" rel="noopener">
