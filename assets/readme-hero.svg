@@ -1,6 +1,12 @@
 <!-- assets/readme-hero.svg -->
-<svg width="1200" height="360" viewBox="0 0 1200 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BlackSpirits — UserScripts &amp; UserStyles">
+<svg width="1200" height="360" viewBox="0 0 1200 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="BlackSpirits — UserScripts & UserStyles">
   <defs>
+    <!-- rounded-mask -->
+    <clipPath id="round">
+      <rect x="0" y="0" width="1200" height="360" rx="24" ry="24"/>
+    </clipPath>
+
+    <!-- background grad / filters / styles (iguais aos teus) -->
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#181825"/><stop offset="100%" stop-color="#1e1e2e"/>
     </linearGradient>
@@ -19,7 +25,7 @@
     </filter>
     <style>
       .title{font:800 42px/1.2 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif;fill:#cdd6f4}
-      .subtitle{font:500 18px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif;fill:#bac2de}
+      .subtitle{font:500 18px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif;fill:#a6adc8}
       .pill{font:800 16px/1 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif}
       .cta{font:900 24px/1 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif;letter-spacing:.2px}
       .handle{font:600 14px/1 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial,'Noto Sans','Liberation Sans',sans-serif;fill:#7f849c}
@@ -27,59 +33,79 @@
     </style>
   </defs>
 
-  <!-- background -->
-  <rect width="1200" height="360" fill="url(#bg)"/>
+  <!-- tudo recortado pelo radius -->
+  <g clip-path="url(#round)">
+    <!-- fundo -->
+    <rect width="1200" height="360" fill="url(#bg)"/>
 
-  <!-- soft blobs -->
-  <circle cx="200" cy="80" r="140" fill="#b4befe" opacity="0.15" filter="url(#soft)"/>
-  <circle cx="1050" cy="300" r="160" fill="#89b4fa" opacity="0.12" filter="url(#soft)"/>
-  <circle cx="750" cy="60" r="120" fill="#fab387" opacity="0.10" filter="url(#soft)"/>
+    <!-- blobs -->
+    <circle cx="200" cy="80" r="140" fill="#b4befe" opacity="0.15" filter="url(#soft)"/>
+    <circle cx="1050" cy="300" r="160" fill="#89b4fa" opacity="0.12" filter="url(#soft)"/>
+    <circle cx="750" cy="60" r="120" fill="#fab387" opacity="0.10" filter="url(#soft)"/>
 
-  <!-- concentric rings (top-right, fully visible with margin) -->
-  <!-- outer radius = 82, stroke-width = 8 (adds 4), margin ~= 8 => center = (1200 - 94, 0 + 94) -->
-  <g transform="translate(1106,94)">
-    <circle r="48" fill="none" stroke="url(#ring)" stroke-width="12" opacity=".95"/>
-    <circle r="82" fill="none" stroke="url(#ring)" stroke-width="8" opacity=".25"/>
-  </g>
-
-  <!-- header (slightly higher) -->
-  <g transform="translate(0,-72)">
-    <text x="80" y="160" class="title">BlackSpirits — UserScripts &amp; UserStyles</text>
-    <text x="80" y="196" class="subtitle">
-      <tspan x="80" dy="0">A personal collection of UserScripts (.user.js) and UserStyles (.user.css)</tspan>
-      <tspan x="80" dy="22">to enhance websites with custom themes, UI tweaks, and automation tools.</tspan>
-    </text>
-    <g transform="translate(80,246)">
-      <rect rx="12" ry="12" width="140" height="36" fill="#cba6f7"/>
-      <text x="70" y="23" text-anchor="middle" class="pill" fill="#1b1b1b">UserStyle</text>
+    <!-- anéis -->
+    <g transform="translate(1105,95)">
+      <circle r="48" fill="none" stroke="url(#ring)" stroke-width="12" opacity=".95"/>
+      <circle r="82" fill="none" stroke="url(#ring)" stroke-width="8" opacity=".25"/>
     </g>
-    <g transform="translate(230,246)">
-      <rect rx="12" ry="12" width="150" height="36" fill="#89b4fa"/>
-      <text x="75" y="23" text-anchor="middle" class="pill" fill="#1b1b1b">UserScript</text>
-    </g>
-  </g>
 
-  <!-- CTA (nudged up a bit) -->
-  <a href="https://github.com/BlackSpirits/UserScripts/stargazers" target="_blank" rel="noopener noreferrer">
-    <g transform="translate(650,220)" filter="url(#btnshadow)" style="cursor:pointer">
-      <rect x="13" y="0" rx="18" ry="18" width="360" height="52" fill="none" stroke="url(#ring)" stroke-width="2"/>
-      <rect x="14" y="1" rx="16" ry="16" width="358" height="50" fill="#cdd6f4" opacity=".08"/>
-      <!-- geometric center: 13 + 360/2 = 193 -->
-      <text x="193" y="34" text-anchor="middle" class="cta" fill="url(#ring)">
-        <tspan>Found it useful?</tspan>
-        <tspan dx="10">★</tspan>
-        <tspan dx="10">Star it</tspan>
+    <!-- header -->
+    <g transform="translate(0,-75)">
+      <text x="80" y="160" class="title">BlackSpirits — UserScripts &amp; UserStyles</text>
+      <text x="80" y="196" class="subtitle">
+        <tspan x="80" dy="0">A personal collection of UserScripts (.user.js) and UserStyles (.user.css)</tspan>
+        <tspan x="80" dy="22">to enhance websites with custom themes, UI tweaks, and automation tools.</tspan>
       </text>
+      <g transform="translate(80,246)">
+        <rect rx="12" ry="12" width="140" height="36" fill="#cba6f7"/>
+        <text x="70" y="23" text-anchor="middle" class="pill" fill="#1b1b1b">UserStyle</text>
+      </g>
+      <g transform="translate(230,246)">
+        <rect rx="12" ry="12" width="150" height="36" fill="#89b4fa"/>
+        <text x="75" y="23" text-anchor="middle" class="pill" fill="#1b1b1b">UserScript</text>
+      </g>
     </g>
-  </a>
 
-  <!-- code block (left) -->
-  <g class="code" text-anchor="middle" transform="translate(-180,0)">
-    <text x="600" y="300">&lt;/&gt;  {}   //   ()   const   await</text>
-    <text x="600" y="324">:root   --var   querySelector()   .classList</text>
-    <text x="600" y="348">GM_addStyle   match:*://*/*   new MutationObserver()</text>
+<!-- CTA -->
+<a href="https://github.com/BlackSpirits/UserScripts/stargazers" target="_blank" rel="noopener noreferrer">
+  <g transform="translate(655,215)" filter="url(#btnshadow)" style="cursor:pointer">
+    <!-- caixa -->
+    <rect x="13" y="0" rx="18" ry="18" width="338" height="52" fill="none" stroke="url(#ring)" stroke-width="2"/>
+    <rect x="14" y="1" rx="16" ry="16" width="336" height="50" fill="#cdd6f4" opacity=".08"/>
+
+    <!-- centro visual do conteúdo da caixa = 13 + 338/2 = 182 -->
+    <!-- texto esquerdo, com folga até ao centro -->
+    <text x="215" y="28" dominant-baseline="middle" text-anchor="end" class="cta" fill="url(#ring)">
+      Found it useful?
+    </text>
+
+    <!-- estrela vetorial centrada exatamente no meio (x=182) -->
+    <g transform="translate(225,-2)">
+      <!-- o path é ~32px; recentramos e escalamos um pouco -->
+      <g transform="translate(-16,-16) scale(1.9)">
+        <path d="M16 28l-4.7 2.5 0.9-5.3-3.8-3.8 5.3-0.8L16 16l2.4 4.9 5.3 0.8-3.8 3.8 0.9 5.3z"
+              fill="url(#ring)"/>
+      </g>
+    </g>
+
+    <!-- texto direito, com folga a partir do centro -->
+    <text x="265" y="28" dominant-baseline="middle" text-anchor="start" class="cta" fill="url(#ring)">
+      Star it
+    </text>
+  </g>
+</a>
+
+    <!-- code -->
+    <g class="code" text-anchor="middle" transform="translate(-200,0)">
+      <text x="600" y="300">&lt;/&gt;  {}   //   ()   const   await</text>
+      <text x="600" y="324">:root   --var   querySelector()   .classList</text>
+      <text x="600" y="348">GM_addStyle   match:*://*/*   new MutationObserver()</text>
+    </g>
+
+    <!-- handle -->
+    <text x="1130" y="336" class="handle" text-anchor="end">@blackspirits</text>
   </g>
 
-  <!-- handle -->
-  <text x="1120" y="336" class="handle" text-anchor="end">@blackspirits</text>
+  <!-- (opcional) um traço fininho para “desenhar” o raio no fundo branco do GitHub -->
+  <rect x="0.5" y="0.5" width="1199" height="359" rx="24" ry="24" fill="none" stroke="rgba(205,214,244,.18)"/>
 </svg>
