@@ -1,0 +1,80 @@
+name: Update copyright year
+
+on:
+  schedule:
+    # Runs on January 1st, 00:00 UTC each year
+    - cron: "0 0 1 1 *"
+  workflow_dispatch: {}  # allow manual runs
+
+permissions:
+  contents: write
+
+jobs:
+  update-year:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # needed to read the first commit year
+
+      - name: Update years in README (and LICENSE if present)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          CURRENT_YEAR="$(date -u +%Y)"
+
+          # Files to touch
+          FILES=("README.md" "README.MD")
+          [[ -f "LICENSE" ]] && FILES+=("LICENSE")
+          [[ -f "LICENSE.md" ]] && FILES+=("LICENSE.md")
+          [[ -f "LICENSE.txt" ]] && FILES+=("LICENSE.txt")
+
+          # Function to update a single file
+          update_file () {
+            local FILE="$1"
+            [[ -f "$FILE" ]] || return 0
+
+            # Try to read the start year from the first occurrence of "© 20xx"
+            START_YEAR="$(grep -oE '©[[:space:]]*[0-9]{4}' -m1 "$FILE" | grep -oE '[0-9]{4}' || true)"
+
+            # Fallback: first commit year
+            if [[ -z "${START_YEAR:-}" ]]; then
+              START_YEAR="$(git log --reverse --date=short --format=%ad 2>/dev/null | head -1 | cut -d- -f1 || true)"
+            fi
+
+            # Final fallback: current year
+            if [[ -z "${START_YEAR:-}" ]]; then
+              START_YEAR="$CURRENT_YEAR"
+            fi
+
+            # Use an en dash (–). If you prefer a hyphen, replace it with '-'.
+            if [[ "$CURRENT_YEAR" -eq "$START_YEAR" ]]; then
+              NEW="© ${START_YEAR}"
+            else
+              NEW="© ${START_YEAR}–${CURRENT_YEAR}"
+            fi
+
+            # Replace only the first "© 20xx" or "© 20xx–20yy"
+            sed -E -i '0,/©[[:space:]]*[0-9]{4}([–-][0-9]{4})?/{s/©[[:space:]]*[0-9]{4}([–-][0-9]{4})?/'"$NEW"'/}' "$FILE"
+          }
+
+          for FILE in "${FILES[@]}"; do
+            update_file "$FILE"
+          done
+
+      - name: Commit & push if changed
+        shell: bash
+        run: |
+          set -e
+          if git diff --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          YEAR="$(date -u +%Y)"
+          git commit -m "chore: update © to ${YEAR}"
+          git push
