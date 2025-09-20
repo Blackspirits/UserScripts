@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name         IMDb — Catppuccin Mocha Theme
 @namespace    blackspirits.github.io/
-@version      2.0
+@version      2.1
 @description  Catppuccin Mocha dark theme for IMDb: consistent colors, transparent rating bar with unified hover/radius, header flyouts, autosuggest, awards highlights, subnav spacing, IMDb Scout tweaks, and icon refinements.
 @license      MIT
 @author       BlackSpirits
@@ -167,7 +167,7 @@ svg, .ipc-icon, .ipc-icon--inline, .ipc-icon--dynamic-fill { fill: currentColor 
  }
 
 .ipc-btn--core-accent1, .ipc-btn--theme-primary {
-  background: var(--ctp-mauve) !important; color:#1b1b1b !important; border-color: var(--ctp-mauve) !important;
+  background: var(--ctp-surface1) !important; color: var(--ctp-text) !important; border-color: var(--ctp-surface1) !important;
 }
 .ipc-btn--core-baseAlt {
   background: var(--ctp-surface1) !important; color: var(--ctp-text) !important; border: 1px solid var(--ctp-surface2) !important;
@@ -215,8 +215,8 @@ table, thead, tbody, tr, th, td {
 
 /* Labels & content inside metadata rows */
 .ipc-metadata-list--base .ipc-metadata-list__item .ipc-metadata-list-item__list-content-item,
-.ipc-metadata-list--base .ipc-metadata-list__item .ipc-metadata-list-item__list-content-item a { color: var(--ctp-text) !important; }
-.ipc-metadata-list--base .ipc-metadata-list__item .ipc-metadata-list-item__list-content-item a:hover { color: var(--ctp-lavender) !important; }
+.ipc-metadata-list--base .ipc-metadata-list__item .ipc-metadata-list-item__list-content-item a { color: var(--ctp-peach) !important; }
+.ipc-metadata-list--base .ipc-metadata-list__item .ipc-metadata-list-item__list-content-item a:hover { color: var(--ctp-flamingo) !important; }
 .ipc-metadata-list--base .ipc-metadata-list-item__list-content-item--subText { color: var(--ctp-subtext1) !important; }
 .ipc-metadata-list-item__list-content-item.ipc-btn--not-interactable { color: var(--ctp-text) !important; }
 
@@ -416,38 +416,38 @@ a.ipc-btn[href*="/list/watchlist"]:is(:hover, :focus) .ipc-btn__text { color: va
 /* ===== Edit and Add button ===== */
 a[data-testid="edit-button"], 
 a[data-testid="add-button"] {
-  background: var(--ctp-mauve) !important;
-  color: var(--ctp-crust) !important; /* texto */
+  background: var(--ctp-surface0) !important;
+  color: var(--ctp-blue) !important; /* texto */
 }
 
 a[data-testid="edit-button"] .ipc-icon, 
 a[data-testid="add-button"] .ipc-icon {
-  color: var(--ctp-crust) !important; /* ícone igual ao texto */
-  fill: var(--ctp-crust) !important;  /* garante para SVG */
+  color: var(--ctp-red) !important;
+  fill: var(--ctp-red) !important;
 }
 
 a[data-testid="edit-button"]:hover, 
 a[data-testid="add-button"]:hover {
-  background-color: #b689f4 !important; /* mauve mais escuro */
+  background-color: var(--ctp-surface0) !important;
 }
 
 /* ===== Add to Watchlist + Dropdown ===== */
 button[data-testid="tm-box-wl-button"],
 button[data-testid="tm-box-addtolist-button"] {
-  background: var(--ctp-mauve) !important;
-  color: var(--ctp-crust) !important; /* texto */
+  background: var(--ctp-surface1) !important;
+  color: var(--ctp-blue) !important;
 }
 
 button[data-testid="tm-box-wl-button"] .ipc-icon,
 button[data-testid="tm-box-addtolist-button"] .ipc-icon {
-  color: var(--ctp-crust) !important; /* ícone igual ao texto */
-  fill: var(--ctp-crust) !important;  /* garante cor em SVG */
+  color: var(--ctp-crust) !important;
+  fill: var(--ctp-crust) !important;
 }
 
 /* Hover same as Edit/Add */
 button[data-testid="tm-box-wl-button"]:hover,
 button[data-testid="tm-box-addtolist-button"]:hover {
-  background-color: #b689f4 !important; /* mauve mais claro/hover */
+  background-color: var(--ctp-surface2) !important;
 }
 
 /* "Clear all" button: no box, link-style */
@@ -549,7 +549,7 @@ a.ipc-link[href*="/fullcredits"]:hover {
 /* Drawer close button - crust color */
 .drawer__panelHeaderClose,
 .drawer__panelHeaderClose svg {
-  color: var(--ctp-crust) !important; /* if the icon supports color */
+  color: var(--ctp-crust) !important;
   fill: var(--ctp-crust) !important;  /* SVG icon color */
 }
 
@@ -583,14 +583,26 @@ a.ipc-link[href*="/fullcredits"]:hover {
 [data-testid="awards"] .ipc-metadata-list,
 [data-testid="awards"] .ipc-metadata-list__item,
 [data-testid="awards"] .ipc-inline-list {
-  background: var(--ctp-surface0) !important; color: var(--ctp-text) !important; border: none !important;
+  background: var(--ctp-surface) !important;
+  color: var(--ctp-text) !important;
+  border: none !important;
 }
 [data-testid="awards"] a,
-[data-testid="awards"] .ipc-metadata-list-item__list-content-item { color: var(--ctp-text) !important; }
-[data-testid="awards"] a:hover { color: var(--ctp-blue) !important; }
-[data-testid="awards"] svg { fill: var(--ctp-text) !important; }
+[data-testid="awards"] .ipc-metadata-list-item__list-content-item { color: var(--ctp-crust) !important; }
+[data-testid="awards"] a:hover { color: var(--ctp-mantle) !important; }
+[data-testid="awards"] svg { fill: var(--ctp-red) !important; }
 [data-testid="awards"] .ipc-inline-list--show-dividers li { border-color: rgba(255,255,255,.15) !important; }
 [data-testid="awards"] { border: 1px solid var(--ipt-accent1-bg) !important; border-radius: 8px !important; overflow: hidden; }
+
+/* Awards: darker title (override; keep after block above) */
+[data-testid="awards"] li[data-testid="award_information"] > a.ipc-metadata-list-item__label--link,
+[data-testid="awards"] li[data-testid="award_information"] > a.ipc-metadata-list-item__label--link:visited,
+[data-testid="awards"] li[data-testid="award_information"] > a.ipc-metadata-list-item__label--link:hover,
+[data-testid="awards"] li[data-testid="award_information"] > a.ipc-metadata-list-item__label--link:focus {
+  color: var(--ctp-subtext0) !important;
+  -webkit-text-fill-color: var(--ctp-red) !important;
+  font-weight: 700 !important;
+}
 
 /* ===== Advanced Search header accents ===== */
 [data-testid="advanced-search-section"] .sc-f7740eed-0 span {
@@ -1487,7 +1499,7 @@ section[data-testid="title-cast"] .ipc-inline-list__item > span {
 svg.ipc-icon--add,
 svg.ipc-icon--add > path {
   color: var(--ctp-crust) !important;
-  fill:  var(--ctp-crust) !important;
+  fill:  var(--ctp-red) !important;
 }
 
 /* =========================
@@ -1557,6 +1569,80 @@ a.ipc-link[href*="/fullcredits/?ref_=tt_ov_ql_1"]:focus {
 /* keep the tiny dividers soft */
 [data-testid="hero-subnav-bar-topic-links"] .ipc-inline-list__item {
   border-color: var(--ctp-surface1) !important;
+}
+
+/* Name page — Details block: make section titles peach */
+ul.ipc-metadata-list.ipc-metadata-list--dividers-all.ipc-metadata-list--base[role="presentation"]
+  > li.ipc-metadata-list__item
+  :is(.ipc-metadata-list-item__label, .ipc-metadata-list-item__label.ipc-btn--not-interactable) {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
+  font-weight: 700 !important;
+  margin-right: 6px !important;
+}
+
+/* Linked title variant (e.g., Publicity listings) */
+ul.ipc-metadata-list.ipc-metadata-list--dividers-all.ipc-metadata-list--base[role="presentation"]
+  > li.ipc-metadata-list__item
+  a.ipc-metadata-list-item__label--link {
+  color: var(--ctp-peach) !important;
+  -webkit-text-fill-color: var(--ctp-peach) !important;
+  font-weight: 700 !important;
+}
+
+ul.ipc-metadata-list.ipc-metadata-list--dividers-all.ipc-metadata-list--base[role="presentation"]
+  > li.ipc-metadata-list__item
+  a.ipc-metadata-list-item__label--link:hover {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
+}
+
+/* Small gap between the two Starmeter buttons */
+.sc-b0a84d32-0.ffveQj { display: flex; align-items: center; gap: 2px; }
+
+/* Bio details: lavender titles, peach values */
+ul.ipc-metadata-list.ipc-metadata-list--dividers-between.ipc-metadata-list--base[role="presentation"]
+  > li.ipc-metadata-list__item
+  .ipc-metadata-list-item__label {
+  color: var(--ctp-lavender) !important;
+  font-weight: 700 !important;
+  margin-right: 6px !important;
+}
+
+/* Bio details: override Height value */
+ul.ipc-metadata-list.ipc-metadata-list--dividers-between.ipc-metadata-list--base[role="presentation"]
+  > li#height .ipc-html-content-inner-div,
+ul.ipc-metadata-list.ipc-metadata-list--dividers-between.ipc-metadata-list--base[role="presentation"]
+  > li#height .ipc-html-content-inner-div a {
+  color: var(--ctp-peach) !important;
+  -webkit-text-fill-color: var(--ctp-peach) !important;
+}
+
+/* Hover */
+ul.ipc-metadata-list.ipc-metadata-list--dividers-between.ipc-metadata-list--base[role="presentation"]
+  > li.ipc-metadata-list__item
+  .ipc-html-content-inner-div a:hover {
+  color: var(--ctp-peach) !important;
+  -webkit-text-fill-color: var(--ctp-peach) !important;
+}
+
+/* FAQ answers: make values peach */
+[data-testid="faq-content"]
+  ul.ipc-metadata-list.ipc-metadata-list--dividers-all.ipc-metadata-list--base
+  .ipc-html-content-inner-div,
+[data-testid="faq-content"]
+  ul.ipc-metadata-list.ipc-metadata-list--dividers-all.ipc-metadata-list--base
+  .ipc-html-content-inner-div a {
+  color: var(--ctp-peach) !important;
+  -webkit-text-fill-color: var(--ctp-peach) !important;
+}
+
+/* Hover */
+[data-testid="faq-content"]
+  ul.ipc-metadata-list.ipc-metadata-list--dividers-all.ipc-metadata-list--base
+  .ipc-html-content-inner-div a:hover {
+  color: var(--ctp-peach) !important;
+  -webkit-text-fill-color: var(--ctp-peach) !important;
 }
 
 } /* end @-moz-document */
