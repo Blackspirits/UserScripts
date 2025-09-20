@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name         IMDb — Catppuccin Mocha Theme
 @namespace    blackspirits.github.io/
-@version      2.1
+@version      2.2
 @description  Catppuccin Mocha dark theme for IMDb: consistent colors, transparent rating bar with unified hover/radius, header flyouts, autosuggest, awards highlights, subnav spacing, IMDb Scout tweaks, and icon refinements.
 @license      MIT
 @author       BlackSpirits
@@ -16,12 +16,8 @@
                url-prefix("https://www.imdb.com/"),
                url-prefix("https://m.imdb.com/") {
 
-/* ===========================
-   IMDb — Catppuccin Mocha Theme
-   Maintainer: BlackSpirits
-   =========================== */
-
 /* ===== Root variables ===== */
+/* v2.2: add --ctp-surface alias used later */
 :root {
   /* Catppuccin Mocha palette */
   --ctp-base:#1e1e2e; --ctp-mantle:#181825; --ctp-crust:#1e1e2e;
@@ -36,10 +32,17 @@
   --rating-hover: rgba(255,255,255,.10);
   --radius-sm: 5px;
   --radius-md: 8px;
-  
- 
+
+  /* alias used by some blocks */
+  --ctp-surface: var(--ctp-surface0);
+
   color-scheme: dark;
 }
+
+/* ===========================
+   IMDb — Catppuccin Mocha Theme
+   Maintainer: BlackSpirits
+   =========================== */
 
 /* ===== Global resets / backgrounds ===== */
 
@@ -131,8 +134,6 @@ a:visited { color: var(--ctp-red) !important; }
 .ipc-text--subhead, .ipc-sub-text, .ipc-inline-list__item { color: var(--ctp-peach) !important; }
 svg, .ipc-icon, .ipc-icon--inline, .ipc-icon--dynamic-fill { fill: currentColor !important; color: var(--ctp-red) !important; }
 
-
-
 /* Rating histogram */
 [data-testid="rating-histogram-chart"]
   [data-testid="histogram-bar-container"] > div {
@@ -145,7 +146,6 @@ svg, .ipc-icon, .ipc-icon--inline, .ipc-icon--dynamic-fill { fill: currentColor 
   color: var(--ctp-rosewater) !important;
 }
 
-
 /* Histogram Vote Count */
 :root [data-testid="rating-histogram-chart"] span.vote-count[data-testid="rating-histogram-vote-count"],
 :root [data-testid="rating-histogram-vote-count"].vote-count,
@@ -153,7 +153,6 @@ svg, .ipc-icon, .ipc-icon--inline, .ipc-icon--dynamic-fill { fill: currentColor 
   color: var(--ctp-text) !important;
   font-weight: 500;
 }
-
 
 /* ===== Common containers & buttons ===== */
 :is(.ipc-card, .ipc-list-card, .ipc-poster-card, .ipc-slate-card, .ipc-chip, .ipc-tag) {
@@ -412,7 +411,6 @@ a.ipc-btn[href*="/list/watchlist"]:is(:hover, :focus) .ipc-btn__text { color: va
   fill: var(--ctp-blue) !important;
 }
 
-
 /* ===== Edit and Add button ===== */
 a[data-testid="edit-button"], 
 a[data-testid="add-button"] {
@@ -560,8 +558,6 @@ a.ipc-link[href*="/fullcredits"]:hover {
   fill:  color-mix(in srgb, var(--ctp-crust) 80%, white) !important;
 }
 
-
-
 /* ===== Mega-menu / Drawer ===== */
 [data-testid="drawer"], .drawer, .drawer__panel, .drawer__panelContent,
 .navlcl, .navlinkcat, .navlinkcat__listContainer, .navlinkcat__listContainerInner,
@@ -680,6 +676,55 @@ a.ipc-link[href*="/fullcredits"]:hover {
   background-color: var(--ctp-surface0) !important;
 }
 
+/* ===== Autosuggest (languages) ===== */
+.react-autosuggest__container--open,
+.sc-ed50659a-3.bHbuuJ.react-autosuggest__suggestions-container--open {
+  background-color: var(--ctp-mantle) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface0) !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+}
+.react-autosuggest__suggestions-list,
+.react-autosuggest__suggestion {
+  background-color: var(--ctp-mantle) !important;
+  color: var(--ctp-text) !important;
+}
+.react-autosuggest__suggestion[aria-selected="true"],
+.react-autosuggest__suggestion:hover {
+  background-color: var(--ctp-surface1) !important;
+}
+
+.sc-ed50659a-1.xXsGG,
+.sc-ed50659a-0.gwNDFc.react-autosuggest__input {
+  background: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+  border-radius: 6px !important;
+}
+.sc-ed50659a-0.gwNDFc.react-autosuggest__input::placeholder {
+  color: var(--ctp-overlay1) !important;
+}
+
+.react-autosuggest__container svg,
+.react-autosuggest__suggestions-container svg {
+  fill: currentColor !important;
+  color: var(--ctp-text) !important;
+}
+
+/* ===== Primary language only checkbox ===== */
+.sc-f44671ca-1.idmUnN,
+.ipc-check-box.ipc-check-box--base {
+  background: transparent !important;
+  border: none !important;
+}
+.ipc-boolean-input__icon .ipc-icon {
+  color: var(--ctp-text) !important;
+  fill: var(--ctp-text) !important;
+}
+
 /* ===== Section headers (e.g., Awards & recognition) ===== */
 .sc-c70bb40c-0.kGJlDJ { color: var(--ctp-mauve) !important; font-weight: 600 !important; }
 
@@ -731,36 +776,6 @@ a.ipc-link[href*="/fullcredits"]:hover {
 
 /* Secondary labels */
 .ipc-boolean-input__label { color: var(--ctp-subtext1) !important; font-weight: 500; }
-
-/* ===== Autosuggest (languages) ===== */
-.react-autosuggest__container--open,
-.sc-ed50659a-3.bHbuuJ.react-autosuggest__suggestions-container--open {
-  background-color: var(--ctp-mantle) !important; color: var(--ctp-text) !important;
-  border: 1px solid var(--ctp-surface0) !important; border-top: none !important; border-bottom: none !important;
-  border-radius: 6px !important; box-shadow: none !important;
-}
-.react-autosuggest__suggestions-list, .react-autosuggest__suggestion {
-  background-color: var(--ctp-mantle) !important; color: var(--ctp-text) !important;
-}
-.react-autosuggest__suggestion[aria-selected="true"], .react-autosuggest__suggestion:hover {
-  background-color: var(--ctp-surface1) !important;
-}
-
-.sc-ed50659a-1.xXsGG,
-.sc-ed50659a-0.gwNDFc.react-autosuggest__input {
-  background: var(--ctp-surface0) !important; color: var(--ctp-text) !important;
-  border: 1px solid var(--ctp-surface2) !important; border-radius: 6px !important;
-}
-.sc-ed50659a-0.gwNDFc.react-autosuggest__input::placeholder { color: var(--ctp-overlay1) !important; }
-
-.react-autosuggest__container svg,
-.react-autosuggest__suggestions-container svg { fill: currentColor !important; color: var(--ctp-text) !important; }
-
-/* ===== Primary language only checkbox ===== */
-.sc-f44671ca-1.idmUnN, .ipc-check-box.ipc-check-box--base {
-  background: transparent !important; border: none !important;
-}
-.ipc-boolean-input__icon .ipc-icon { color: var(--ctp-text) !important; fill: var(--ctp-text) !important; }
 
 /* ===== Text inputs ===== */
 .ipc-textinput__label { color: var(--ctp-subtext1) !important; font-weight: 500; }
@@ -942,6 +957,7 @@ button:where([class*="expand"], [data-testid*="expand"]):hover {
   background: var(--ctp-surface0) !important;
   border: 1px solid var(--ctp-surface2) !important;
 }
+
 /* ===== FIX: Details labels (give them an accent color) ===== */
 section[data-testid="Details"] .ipc-metadata-list-item__label,
 section[id*="Details"] .ipc-metadata-list-item__label {
@@ -1279,7 +1295,6 @@ section[data-testid="title-cast"] [data-testid^="title-cast-item__eps-toggle"]:h
 [data-testid="user-legacy-alert"] .sc-f912989d-3 { color: var(--ctp-text) !important; } /* title */
 [data-testid="user-legacy-alert"] .sc-f912989d-4 { color: var(--ctp-subtext1) !important; } /* body */
 
-
 /* Section headers + counters */
 .ipc-title--section-title .ipc-title__text { color: var(--ctp-text) !important; }
 .ipc-title--section-title .ipc-title__subtext { color: var(--ctp-rosewater) !important; font-weight: 700 !important; }
@@ -1305,6 +1320,70 @@ section[data-testid="title-cast"] [data-testid^="title-cast-item__eps-toggle"]:h
 /* Type tag ("Short", "TV Series", etc.) */
 .ipc-primary-image-list-card__title-type {
   color: var(--ctp-subtext1) !important; /* lighter than body text */
+}
+
+/* "Cast & crew" link — peach */
+a.ipc-link[href$="/fullcredits/?ref_=ttfc_ov_ql_1"],
+a.ipc-link[href*="/fullcredits/?ref_=ttfc_ov_ql_1"] {
+  color: var(--ctp-peach) !important;
+  -webkit-text-fill-color: var(--ctp-peach) !important; /* Safari */
+}
+a.ipc-link[href$="/fullcredits/?ref_=ttfc_ov_ql_1"]:hover,
+a.ipc-link[href*="/fullcredits/?ref_=ttfc_ov_ql_1"]:hover {
+  color: var(--ctp-lavender) !important; /* subtle hover */
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
+}
+
+/* Fallback: any "fullcredits" link sitewide (keep last) */
+a.ipc-link[href*="/fullcredits/"],
+a.ipc-link[href*="/fullcredits/"]:visited { 
+  color: var(--ctp-peach) !important; 
+  -webkit-text-fill-color: var(--ctp-peach) !important;
+}
+a.ipc-link[href*="/fullcredits/"]:hover {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
+}
+
+/* All topics (match peach link color) */
+[data-testid="hero-subnav-bar-all-topics-button"] .ipc-responsive-button__text {
+  color: var(--ctp-peach) !important;
+  -webkit-text-fill-color: var(--ctp-peach) !important; /* Safari */
+}
+
+[data-testid="hero-subnav-bar-all-topics-button"]:hover .ipc-responsive-button__text {
+  color: var(--ctp-lavender) !important; /* optional hover */
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
+}
+
+/* “Company credits” link — peach like others */
+a.ipc-link[href*="/companycredits"] {
+  color: var(--ctp-peach) !important;
+  -webkit-text-fill-color: var(--ctp-peach) !important; /* Safari */
+}
+a.ipc-link[href*="/companycredits"]:hover {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
+}
+
+/* More from this title — uniform peach + weight */
+[data-testid="more-from-section"] a[data-testid="more-from-item"],
+[data-testid="more-from-section"] a[data-testid="more-from-item"]:visited {
+  color: var(--ctp-peach) !important;
+  -webkit-text-fill-color: var(--ctp-peach) !important;
+  font-weight: 500 !important; /* normalize (no random bold) */
+}
+
+[data-testid="more-from-section"] a[data-testid="more-from-item"]:hover {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
+  text-decoration: underline !important;
+}
+
+/* Safety: kill any bold coming from these classes */
+.sc-10892d53-3.eIUcuX,
+.more-from-link-no-data.sc-10892d53-3.eIUcuX {
+  font-weight: 500 !important;
 }
 
 /* ---------- Filmography accordions: borders + bottom divider ---------- */
@@ -1365,6 +1444,8 @@ section[data-testid="title-cast"] [data-testid^="title-cast-item__eps-toggle"]:h
 }
 
 /* The role “pill” (e.g., Laura) inside the credits list */
+.date-credits-accordion .credit-text-list .ipc-inline-list__item,
+.date-unrel-credits-accordion .credit-text-list .ipc-inline-list__item,
 .date-credits-accordion .credit-text-list .ipc-inline-list__item,
 .date-unrel-credits-accordion .credit-text-list .ipc-inline-list__item,
 .date-credits-accordion .credit-text-list .ipc-btn--not-interactable,
@@ -1643,6 +1724,133 @@ ul.ipc-metadata-list.ipc-metadata-list--dividers-between.ipc-metadata-list--base
   .ipc-html-content-inner-div a:hover {
   color: var(--ctp-peach) !important;
   -webkit-text-fill-color: var(--ctp-peach) !important;
+}
+
+/* Full credits: remove light backgrounds */
+.full-credits-page-container,
+.meta-data-list-full,
+.full-credits-page-list,
+.full-credits-page-list-item,
+.sc-314065ad-0.hZXevt,
+.sc-34a1103b-2.PYDtW,
+.ipc-page-section--base {
+  background: var(--ctp-base) !important;
+  color: var(--ctp-text) !important;
+  border: none !important;
+}
+
+/* Avatar fallback circle */
+.ipc-avatar__avatar-image.ipc-media--fallback {
+  background: var(--ctp-surface1) !important;
+  color: var(--ctp-text) !important;
+}
+
+/* “Jump to” select */
+[data-testid="jumpTo"] .ipc-simple-select--on-accent2 {
+  background: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+}
+#jump-to {
+  color: var(--ctp-text) !important;
+}
+
+/* “Edit” buttons in the header bar */
+.ipc-responsive-button.ipc-btn--theme-base {
+  background: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface1) !important;
+}
+
+/* Row hover */
+.full-credits-page-list-item:hover {
+  background: var(--ctp-surface0) !important;
+}
+
+/* Make the year (• 2025) match “2 episodes” color */
+.full-credits-page-list .sc-2840b417-1,
+.sc-2840b417-1.fOtfDU {
+  color: var(--ctp-blue) !important;
+}
+
+/* Ensure “2 episodes” link inherits the same color */
+.sc-2840b417-1 .ipc-link,
+.sc-2840b417-1 .ipc-link:visited,
+.sc-2840b417-1 .ipc-link:hover {
+  color: inherit !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Producer label: match small metadata tone */
+.full-credits-page-container .name-credits--crew-metadata .sc-2840b417-7 > span {
+  color: var(--ctp-subtext1) !important;
+  -webkit-text-fill-color: var(--ctp-subtext1) !important; /* Safari */
+  font-weight: 500 !important;
+  background: transparent !important;
+}
+
+/* Full credits: actor (big name) */
+.full-credits-page-container a.name-credits--title-text-big,
+.full-credits-page-container a.name-credits--title-text-big:visited {
+  color: var(--ctp-mauve) !important;
+  -webkit-text-fill-color: var(--ctp-mauve) !important;
+  font-weight: 700 !important;
+}
+.full-credits-page-container a.name-credits--title-text-big:hover {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
+}
+
+/* Full credits: small duplicate name under avatar (dimmer) */
+.full-credits-page-container a.name-credits--title-text-small {
+  color: var(--ctp-peach) !important;
+  -webkit-text-fill-color: var(--ctp-peach) !important;
+  font-weight: 600 !important;
+}
+
+/* Full credits: character link */
+.full-credits-page-container .sc-2840b417-6 a,
+.full-credits-page-container a[href*="/characters/"] {
+  color: var(--ctp-peach) !important;
+  -webkit-text-fill-color: var(--ctp-peach) !important;
+  font-weight: 500 !important;
+}
+.full-credits-page-container .sc-2840b417-6 a:hover,
+.full-credits-page-container a[href*="/characters/"]:hover {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
+}
+
+/* Release dates & AKAs — titles in lavender */
+
+/* Section headers */
+a.ipc-title-link-wrapper[href="#releases"] .ipc-title__text,
+a.ipc-title-link-wrapper[href="#akas"] .ipc-title__text {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
+}
+
+/* Left labels (e.g., "Mexico", "United Kingdom", "(original title)") */
+[data-testid="sub-section-releases"] .ipc-metadata-list-item__label,
+[data-testid="sub-section-releases"] .ipc-metadata-list-item__label--link,
+[data-testid="sub-section-akas"] .ipc-metadata-list-item__label,
+[data-testid="sub-section-akas"] .ipc-metadata-list-item__label--link,
+[id^="rel_aka_"] .ipc-metadata-list-item__label { /* fallback for AKAs */
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
+}
+
+/* Keep lavender on hover/visited too */
+[data-testid="sub-section-releases"] .ipc-metadata-list-item__label--link:hover,
+[data-testid="sub-section-releases"] .ipc-metadata-list-item__label--link:visited,
+[data-testid="sub-section-akas"] .ipc-metadata-list-item__label--link:hover,
+[data-testid="sub-section-akas"] .ipc-metadata-list-item__label--link:visited,
+[id^="rel_aka_"] .ipc-metadata-list-item__label--link:hover,
+[id^="rel_aka_"] .ipc-metadata-list-item__label--link:visited {
+  color: var(--ctp-lavender) !important;
+  -webkit-text-fill-color: var(--ctp-lavender) !important;
 }
 
 } /* end @-moz-document */
