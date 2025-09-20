@@ -8,7 +8,7 @@
   </a>
 </p>
 
-<!-- Repo status — Light w/ dark logos -->
+<!-- Repo status -->
 <p align="center">
   <a href="https://github.com/BlackSpirits/UserScripts/stargazers" rel="noopener noreferrer">
     <img alt="Stars" src="https://img.shields.io/github/stars/BlackSpirits/UserScripts?style=flat&labelColor=E6E9EF&color=F5C2E7&logo=github&logoColor=1F2937"></a>
@@ -22,7 +22,7 @@
     <img alt="Open Source" src="https://img.shields.io/badge/Open%20Source-%E2%9D%A4%EF%B8%8F-F2CDCD?style=flat&labelColor=E6E9EF&logo=github&logoColor=1F2937"></a>
 </p>
 
-<!-- Support — Light w/ dark logos -->
+<!-- Support -->
 <p align="center">
   <a href="https://donate.stripe.com/00w14peB0gBx1tBeOz3Nm00">
     <img alt="Donate via Stripe" src="https://img.shields.io/badge/Donate%20via%20Stripe-Stripe?style=flat&labelColor=E6E9EF&color=D0BCFF&logo=stripe&logoColor=1F2937"></a>
@@ -31,40 +31,61 @@
 </p>
 
 <div align="center">
-  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png"
-       alt="" aria-hidden="true" loading="lazy">
+  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png" alt="" aria-hidden="true" loading="lazy">
 </div>
 
 ## 📂 Available Scripts & Styles
 
 | Name | Type | Description | Install |
 |------|------|-------------|---------|
-| **IMDb — Catppuccin Mocha Theme** | UserStyle | Elegant dark theme for IMDb based on the Catppuccin Mocha palette. | [![Install](https://img.shields.io/badge/Install-UserStyle-blue)](https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/imdb-catppuccin-mocha.user.css) |
-| **IMDb — Ad & IMDbPro Cleaner** | UserScript | Removes IMDb ads, IMDbPro upsell panels, and other clutter. | [![Install](https://img.shields.io/badge/Install-UserScript-orange)](https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/imdb-adpro-cleaner.user.js) |
-| **Torrenting.com — Auto Posters** | UserScript | Displays posters in torrent listings with optimized layout on Torrenting.com. | [![Install](https://img.shields.io/badge/Install-UserScript-orange)](https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/torrenting-show-posters.user.js) |
+| **IMDb — Catppuccin Mocha Theme** | UserStyle | Elegant dark theme for IMDb based on the Catppuccin Mocha palette. | [![Install](https://img.shields.io/badge/Install-UserStyle-1f6feb)](https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/imdb-catppuccin-mocha.user.css) |
+| **IMDb — Ad & IMDbPro Cleaner** | UserScript | Removes IMDb ads, IMDbPro upsell panels, and other clutter. | [![Install](https://img.shields.io/badge/Install-UserScript-d97706)](https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/imdb-adpro-cleaner.user.js) |
+| **Torrenting.com — Auto Posters** | UserScript | Displays posters in torrent listings with optimized layout on Torrenting.com. | [![Install](https://img.shields.io/badge/Install-UserScript-d97706)](https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/torrenting-show-posters.user.js) |
 
 <div align="center">
-  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png"
-       alt="" aria-hidden="true" loading="lazy">
+  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png" alt="" aria-hidden="true" loading="lazy">
+</div>
+
+## ✨ IMDb — Catppuccin Mocha Theme (v2.2)
+
+**Features**
+- Catppuccin Mocha palette across IMDb
+- Transparent hero rating bar with unified hover/radius
+- Styled header flyouts (User/Language), enhanced autosuggest
+- Awards highlights and improved subnav spacing
+- “Cast & crew”, “Company credits”, “All topics”, “More from” links unified (peach + lavender hover)
+- Full Credits page refinements: actor (mauve), character (peach), producer label dimmed
+- Filmography accordions: soft single divider, transparent headers
+- Consistent icons and ribbons on dark backgrounds
+
+**Requirements**  
+Works on all IMDb pages.
+
+**Support**  
+Open issues or feature requests here:  
+[GitHub Issues](https://github.com/BlackSpirits/UserScripts/issues)
+
+**Changelog (highlights)**
+- **v2.2**: Lavender section headers & labels for Release Dates/AKAs; link color unification; accordion and menu cleanups; icon/ribbon contrast.
+- **v2.1**: Bio/Name details tuning (lavender titles, peach values), FAQ answers peach, Starmeter spacing.
+- **v2.0**: Major refresh with Catppuccin Mocha palette and transparent rating bar.
+
+<div align="center">
+  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png" alt="" aria-hidden="true" loading="lazy">
 </div>
 
 ## 🔧 Installation
 
-### For UserScripts (.user.js)
-1. Install a user script manager:
-   - [Tampermonkey](https://www.tampermonkey.net/)
-   - [Violentmonkey](https://violentmonkey.github.io/)
-2. Click the **Install** button in the table above.  
-3. Confirm installation in your script manager.
+### UserScripts (.user.js)
+1. Install a manager: [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/).
+2. Click **Install** in the table above and confirm.
 
-### For UserStyles (.user.css)
-1. Install [Stylus](https://add0n.com/stylus.html).  
-2. Click the **Install** button in the table above.  
-3. Activate the style in Stylus.
+### UserStyles (.user.css)
+1. Install [Stylus](https://add0n.com/stylus.html).
+2. Click **Install** in the table above and enable the style.
 
 <div align="center">
-  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png"
-       alt="" aria-hidden="true" loading="lazy">
+  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png" alt="" aria-hidden="true" loading="lazy">
 </div>
 
 ### 🧭 Browser support
@@ -75,14 +96,11 @@
 | Edge    | ✔️ Works | ✔️ Works |
 | Safari  | 🧪 Not tested (help wanted) | 🧪 Not tested (help wanted) |
 
-<sub>Legend: ✔️ works · ⚠️ partial · 🧪 not tested · ✖️ no support —  
-Safari not tested: **[help us verify](https://github.com/BlackSpirits/UserScripts/issues/new?labels=browser%3Asafari&title=Safari%20support%20report&template=bug_report.md)**</sub>
-
-> Not affiliated with IMDb or Amazon. All trademarks are property of their respective owners.
+<sub>Legend: ✔️ works · ⚠️ partial · 🧪 not tested · ✖️ no support  
+Not affiliated with IMDb or Amazon. Trademarks belong to their owners.</sub>
 
 <div align="center">
-  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png"
-       alt="" aria-hidden="true" loading="lazy">
+  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png" alt="" aria-hidden="true" loading="lazy">
 </div>
 
 ## 🖼️ Screenshots
@@ -97,32 +115,27 @@ Safari not tested: **[help us verify](https://github.com/BlackSpirits/UserScript
 </details>
 
 <div align="center">
-  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png"
-       alt="" aria-hidden="true" loading="lazy">
+  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png" alt="" aria-hidden="true" loading="lazy">
 </div>
 
-### 🗒️ Changelog
-See **[Releases](https://github.com/BlackSpirits/UserScripts/releases)** for notable changes.
+## 🗒️ Releases
+See **[Releases](https://github.com/BlackSpirits/UserScripts/releases)** for full change logs.
 
 <div align="center">
-  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png"
-       alt="" aria-hidden="true" loading="lazy">
+  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png" alt="" aria-hidden="true" loading="lazy">
 </div>
 
 ## 🛠️ Contributing & Feedback
-
-- Found a **bug** or have a suggestion? Open an [issue](https://github.com/BlackSpirits/UserScripts/issues).  
-- Want to improve a script or add a new one? Send a **pull request** with clear changes.
+- Found a bug or have a suggestion? Open an [issue](https://github.com/BlackSpirits/UserScripts/issues).
+- Want to improve a script or add a new one? Send a pull request.
 
 <div align="center">
-  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png"
-       alt="" aria-hidden="true" loading="lazy">
+  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png" alt="" aria-hidden="true" loading="lazy">
 </div>
 
 ## ☕ Support the project
 
 <p align="center">
-  <!-- If you add ./assets/kofi.gif to the repo, swap the src below to that path -->
   <a href="https://ko-fi.com/blackspirits" target="_blank" rel="noopener">
     <img src="https://media3.giphy.com/media/ZEB6yFbLnhyQf7g3hn/giphy.gif" width="160" alt="Buy me a coffee on Ko-fi" loading="lazy">
   </a>
@@ -138,11 +151,9 @@ See **[Releases](https://github.com/BlackSpirits/UserScripts/releases)** for not
 </p>
 
 <div align="center">
-  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png"
-       alt="" aria-hidden="true" loading="lazy">
+  <img src="https://github.com/BlackSpirits/BlackSpirits/blob/main/assets/blue-hr.png" alt="" aria-hidden="true" loading="lazy">
 </div>
 
 ## 📜 License
-
 Released under the [MIT License](./LICENSE).  
-© 2025 BlackSpirits.<p align="right"><a href="#readme">↑ Back to top</a></p>
+© 2025 BlackSpirits. <p align="right"><a href="#readme">↑ Back to top</a></p>
