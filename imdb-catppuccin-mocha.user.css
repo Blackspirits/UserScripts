@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name         IMDb — Catppuccin Mocha Theme
 @namespace    blackspirits.github.io/
-@version      2.4
+@version      2.5
 @description  Catppuccin Mocha dark theme for IMDb: consistent colors, transparent rating bar with unified hover/radius, header flyouts, autosuggest, awards highlights, subnav spacing, IMDb Scout tweaks, and icon refinements.
 @license      MIT
 @author       BlackSpirits
@@ -2114,6 +2114,56 @@ li.ipc-metadata-list__item:has(.pro-upsell) {
   background: transparent !important;
 }
 
+/* Rating number: force visible color/contrast */
+.ipc-rating-display__rating {
+  font-weight: 800 !important;
+  text-shadow:
+    0 0 2px var(--ctp-red),
+    0 0 6px var(--ctp-red);
+}
+
+/* Weighted-rating notice: force light text + themed links */
+.sc-f698ce89-1,
+.fAFxqQ,
+.dikLE,
+.inDvOo,
+.bSZSfc,
+.sc-f698ce89-1 * {
+  color: var(--ctp-text) !important;
+  -webkit-text-fill-color: var(--ctp-text) !important; /* Safari/WebKit */
+}
+
+/* Ratings histogram: force light text for tick labels and bar labels */
+[data-testid="histogram-container"] svg text,
+[data-testid="histogram-container"] svg tspan {
+  fill: var(--ctp-text) !important;          /* main text color */
+  stroke: transparent !important;
+}
+
+/* Defensive: override inline black fills on any element inside the chart */
+[data-testid="histogram-container"] [style*="fill: rgba(0, 0, 0"],
+[data-testid="histogram-container"] [style*="fill:#000"],
+[data-testid="histogram-container"] [style*="rgb(0,0,0)"] {
+  fill: var(--ctp-text) !important;
+}
+
+/* Axis tick labels sometimes sit outside the inner <svg> */
+[data-testid="histogram-container"] [id^="chart-axis-"] tspan {
+  fill: var(--ctp-text) !important;
+}
+
+/* Percent/counts at the end of each bar */
+[id^="chart-bar-"][id$="-labels-"] tspan {
+  fill: var(--ctp-text) !important;
+}
+
+/* "7.5 Unweighted mean" line under the chart */
+[data-testid="calculations-label"],
+.sc-c55fd2d-1 {
+  color: var(--ctp-text) !important;
+  -webkit-text-fill-color: var(--ctp-text) !important; /* Safari */
+}
+
 /* ===========================
    IMDb Contribution (contribute.imdb.com)
    Catppuccin Mocha — compact, de-duplicated
@@ -2128,8 +2178,8 @@ div.contribution,
 .a-container, .a-row, .a-section,
 .a-box, .a-box-inner,
 .a-cardui {
-  background: var(--ctp-base) !important;
-  color: var(--ctp-text) !important;
+  background:  !important;
+  color:  !important;
   border-color: var(--ctp-surface2) !important;
 }
 
