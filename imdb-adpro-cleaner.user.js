@@ -1,19 +1,19 @@
 // ==UserScript==
 // @name         IMDb — Ad/Pro Cleaner
 // @namespace    blackspirits.github.io/
-// @version      1.4
+// @version      1.4.1
 // @description  Block ads/sponsored and strip IMDbPro UI without touching credit accordions.
 // @author       BlackSpirits
 // @license      MIT
 // @homepageURL  https://github.com/BlackSpirits/UserScripts
 // @supportURL   https://github.com/BlackSpirits/UserScripts/issues
-// @downloadURL  https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/imdb-adpro-cleaner.user.js
-// @updateURL    https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/imdb-adpro-cleaner.user.js
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=imdb.com
 // @match        *://*.imdb.com/*
 // @run-at       document-start
 // @noframes
 // @grant        none
+// @downloadURL https://update.greasyfork.org/scripts/545323/IMDb%20%E2%80%94%20AdPro%20Cleaner.user.js
+// @updateURL https://update.greasyfork.org/scripts/545323/IMDb%20%E2%80%94%20AdPro%20Cleaner.meta.js
 // ==/UserScript==
 
 (function () {
@@ -26,7 +26,7 @@
     w.ad_utils = w.ad_utils || {};
     for (const k of [
       'makeAdSlotsCall','set_slots_on_page','ads_header','apsAuctionManager',
-      'update_ad_details','set_partner','expand_overlay','collapse_overlay',
+      'update_ad_details','set_partner',
       'set_aax_instrumentation_pixel_url','set_aax_impression_pixel_url',
       'set_paets_loaded_pixel_url','inject_serverside_ad'
     ]) {
