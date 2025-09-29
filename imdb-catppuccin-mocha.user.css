@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name         IMDb — Catppuccin Mocha Theme
 @namespace    blackspirits.github.io/
-@version      2.5
+@version      2.6
 @description  Catppuccin Mocha dark theme for IMDb: consistent colors, transparent rating bar with unified hover/radius, header flyouts, autosuggest, awards highlights, subnav spacing, IMDb Scout tweaks, and icon refinements.
 @license      MIT
 @author       BlackSpirits
@@ -2162,6 +2162,56 @@ li.ipc-metadata-list__item:has(.pro-upsell) {
 .sc-c55fd2d-1 {
   color: var(--ctp-text) !important;
   -webkit-text-fill-color: var(--ctp-text) !important; /* Safari */
+}
+
+/* --- RetroAdds MOTD (orange banner) — override inline style --- */
+#retroadds > div[style*="background-color: #ffa92a"],
+#retroadds > div[style*="#ffa92a"] {
+  background: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface1) !important;
+}
+#retroadds > div[style*="#ffa92a"] a {
+  color: var(--ctp-peach) !important;
+}
+#retroadds > div[style*="#ffa92a"] a:hover {
+  color: var(--ctp-lavender) !important;
+}
+
+/* --- Force dark background on “contribute” pages at any width --- */
+.a-container.min-content-height.ra-container,
+.a-container.min-content-height.ra-container.plaid,
+#updates_raw, #retroadds,
+.submission-message, form[name="f"],
+.choose, .group, .form-buttons.landing {
+  background: var(--ctp-base) !important;
+  color: var(--ctp-text) !important;
+}
+
+/* Some AUI blocks revert to white on large screens — reinforce */
+@media (min-width: 1024px){
+  .a-container, .a-section, .a-box, .a-cardui,
+  .a-box .a-box-inner {
+    background: var(--ctp-base) !important;
+  }
+}
+
+/* Any inline black text inside this area → light text */
+#updates_raw *[style*="color: black"],
+#updates_raw *[style*="color:#000"],
+#updates_raw *[style*="rgb(0, 0, 0)"] {
+  color: var(--ctp-text) !important;
+}
+
+/* “Continue »” button styled to theme */
+input.btn.primary, .btn.primary {
+  background: var(--ctp-mauve) !important;
+  border-color: var(--ctp-mauve) !important;
+  color: #1b1b1b !important;
+}
+input.btn.primary:hover, .btn.primary:hover {
+  background: var(--ctp-lavender) !important;
+  border-color: var(--ctp-lavender) !important;
 }
 
 /* ===========================
