@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name         IMDb — Catppuccin Mocha Theme
 @namespace    blackspirits.github.io/
-@version      2.3
+@version      2.4
 @description  Catppuccin Mocha dark theme for IMDb: consistent colors, transparent rating bar with unified hover/radius, header flyouts, autosuggest, awards highlights, subnav spacing, IMDb Scout tweaks, and icon refinements.
 @license      MIT
 @author       BlackSpirits
@@ -9,11 +9,11 @@
 @homepageURL  https://github.com/BlackSpirits/UserScripts
 @supportURL   https://github.com/BlackSpirits/UserScripts/issues
 @downloadURL  https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/imdb-catppuccin-mocha.user.css
-@updateURL    https://raw.githubusercontent.com/BlackSpirits/UserScripts/main/imdb-catppuccin-mocha.user.css
 ==/UserStyle== */
 
 @-moz-document url-prefix("https://imdb.com/"),
                url-prefix("https://www.imdb.com/"),
+               url-prefix("https://contribute.imdb.com/"),
                url-prefix("https://m.imdb.com/") {
 
 /* ===========================
@@ -1985,5 +1985,393 @@ section[data-testid="DidYouKnow"] .ipc-metadata-list-item__content-container a:f
   color: var(--ctp-peach) !important;
   -webkit-text-fill-color: var(--ctp-peach) !important;
 }
+
+/* =========================
+   IMDb Episodes tabs (ipc-tabs) — dark fix
+   ========================= */
+
+/* Base: make every tabs wrapper transparent/dark */
+.sc-3f9bc2f7-0,
+.sc-3f9bc2f7-0 *:where(.ipc-tabs) {
+  background: transparent !important;
+}
+
+/* The two tab bars in that section */
+.sc-3f9bc2f7-0 .ipc-tabs--base {
+  background: var(--ctp-base) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+  border-radius: 8px !important;
+}
+
+/* Inner <ul> that IMDb paints white */
+.sc-3f9bc2f7-0 .ipc-tabs--base > ul[role="tablist"] {
+  background: transparent !important;
+  border: 0 !important;
+}
+
+/* Tab links */
+.sc-3f9bc2f7-0 .ipc-tab-link {
+  background: transparent !important;          /* remove white tiles */
+  color: var(--ctp-text) !important;
+  border-radius: 6px !important;
+  padding: 8px 12px !important;
+}
+.sc-3f9bc2f7-0 .ipc-tab-link:hover,
+.sc-3f9bc2f7-0 .ipc-tab-link:focus {
+  background: var(--ctp-surface1) !important;
+  color: var(--ctp-text) !important;
+}
+
+/* Active tab */
+.sc-3f9bc2f7-0 .ipc-tab--active {
+  color: var(--ctp-text) !important;
+  background: var(--ctp-surface0) !important;  /* subtle chip look */
+}
+
+/* Moving indicator bar */
+.sc-3f9bc2f7-0 .ipc-tabs__indicator {
+  background: var(--ctp-mauve) !important;
+  height: 3px !important;
+  border-radius: 3px !important;
+}
+
+/* Left/right chevrons */
+.sc-3f9bc2f7-0 .ipc-tab-arrow {
+  background: transparent !important;
+}
+.sc-3f9bc2f7-0 .ipc-tab-arrow--icon {
+  color: var(--ctp-subtext1) !important;
+  fill: currentColor !important;
+}
+.sc-3f9bc2f7-0 .ipc-tab-arrow:hover .ipc-tab-arrow--icon {
+  color: var(--ctp-lavender) !important;
+}
+
+/* “Chip” display variant (second row that shows season numbers) */
+.sc-3f9bc2f7-0 .ipc-tabs--display-chip .ipc-tab-link {
+  background: var(--ctp-surface1) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+  color: var(--ctp-text) !important;
+}
+.sc-3f9bc2f7-0 .ipc-tabs--display-chip .ipc-tab--active {
+  background: var(--ctp-mauve) !important;
+  border-color: var(--ctp-mauve) !important;
+  color: #1b1b1b !important;
+}
+.sc-3f9bc2f7-0 .ipc-tabs--display-chip .ipc-tab-link:hover {
+  background: var(--ctp-surface2) !important;
+}
+
+/* Defensive: any stray inline white backgrounds */
+.sc-3f9bc2f7-0 :is(.ipc-tabs, .ipc-tab-link, [role="tablist"]) {
+  background-color: transparent !important;
+}
+
+/* Episodes: date stamp color fix */
+.sc-5372d523-10,
+.sc-5372d523-10.knzESm {
+  color: var(--ctp-text) !important;
+  -webkit-text-fill-color: var(--ctp-subtext1) !important; /* Safari/WebKit */
+}
+
+/* Extra safety: if IMDb changes the hash, keep any “airdate-like” span light */
+[data-testid*="episode"],
+section[id*="episodes"],
+section[data-testid*="episode"]
+  span[class*="sc-"][class*="-10"] {
+  color: var(--ctp-subtext1) !important;
+}
+
+/* Last resort: kill inline pure-black text inside episode cards */
+section[id*="episode"],
+section[data-testid*="episode"] *[style*="color:#000"],
+section[id*="episode"],
+section[data-testid*="episode"] *[style*="rgb(0, 0, 0)"] {
+  color: var(--ctp-subtext1) !important;
+  -webkit-text-fill-color: var(--ctp-subtext1) !important;
+}
+
+/* --- Kill the IMDbPro upsell on title pages (and collapse its row) --- */
+
+/* Collapse the parent list item (removes the empty gap) */
+/* Modern browsers (Chromium/Safari/Firefox ≥121) support :has(). */
+li.ipc-metadata-list__item:has(#ProUpsellLink),
+li.ipc-metadata-list__item:has([data-testid="hero-proupsell"]),
+li.ipc-metadata-list__item:has(.pro-upsell) {
+  display: none !important;
+}
+
+/* ==== Contribute: landing form (white background) — dark fix ==== */
+.form-buttons.landing {
+  background: var(--ctp-surface0) !important;
+}
+
+/* last resort: override inline white backgrounds inside this block */
+.form-buttons.landing *[style*="background:#fff"],
+.form-buttons.landing *[style*="background: #fff"],
+.form-buttons.landing *[style*="background:white"],
+.form-buttons.landing *[style*="background: white"] {
+  background: transparent !important;
+}
+
+/* ===========================
+   IMDb Contribution (contribute.imdb.com)
+   Catppuccin Mocha — compact, de-duplicated
+   =========================== */
+
+/* ---------- Base canvas ---------- */
+body.contribution,
+#a-page,
+#pagecontent,
+.contribution-content,
+div.contribution,
+.a-container, .a-row, .a-section,
+.a-box, .a-box-inner,
+.a-cardui {
+  background: var(--ctp-base) !important;
+  color: var(--ctp-text) !important;
+  border-color: var(--ctp-surface2) !important;
+}
+
+/* ---------- Header / footer (legacy + AUI) ---------- */
+#navbar, /* legacy */
+#nav-main,
+.contribution-header,
+#nav-bar.imdb,
+#hmenu-canvas, #hmenu-canvas .hmenu,
+footer, #footer,
+.navFooterBackToTop, .navFooterLinkCol, .navFooterVerticalColumn {
+  background: var(--ctp-crust) !important;
+  color: var(--ctp-text) !important;
+  border: 0 !important;
+}
+
+/* ---------- Links & text ---------- */
+#pagecontent a,
+#nav-bar.imdb a,
+#nav-right-top a, #nav-right-bottom a,
+#nav-links a,
+.a-link-normal, .a-link-emphasis, .a-color-link {
+  color: var(--ctp-peach) !important;
+  text-decoration: none;
+}
+#pagecontent a:hover,
+#nav-bar.imdb a:hover,
+#nav-right-top a:hover, #nav-right-bottom a:hover,
+#nav-links a:hover,
+.a-link-normal:hover, .a-link-emphasis:hover {
+  color: var(--ctp-lavender) !important;
+}
+#pagecontent a:visited, .a-visited { color: var(--ctp-red) !important; }
+
+h1, h2, h3, h4, .a-size-large, .a-size-medium { color: var(--ctp-text) !important; }
+.a-color-base, .a-color-secondary, .a-color-tertiary, .a-text-normal { color: var(--ctp-subtext1) !important; }
+
+/* Divider pipes in legacy bar */
+#nav-bar.imdb .bar { color: var(--ctp-overlay1) !important; }
+
+/* ---------- Forms & inputs ---------- */
+.a-input-text, .a-textarea,
+input[type="text"], input[type="search"], input[type="email"], input[type="number"],
+textarea, select,
+.a-select, .a-dropdown-container, .a-combobox-container {
+  background: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: none !important;
+}
+::placeholder { color: var(--ctp-overlay1) !important; }
+
+.a-dropdown-prompt, .a-dropdown-label, .a-select-label {
+  color: var(--ctp-text) !important;
+  background: var(--ctp-surface0) !important;
+  border-color: var(--ctp-surface2) !important;
+}
+
+.a-checkbox-label, .a-radio-label, label { color: var(--ctp-subtext1) !important; }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--ctp-mauve) !important; }
+
+/* Header search */
+#nav-search .a-search {
+  background: var(--ctp-surface0) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+  border-radius: var(--radius-sm) !important;
+}
+#nav-search .a-search input[type="search"] {
+  background: transparent !important;
+  color: var(--ctp-text) !important;
+}
+#nav-search .a-icon-search { filter: invert(1) !important; }
+
+/* ---------- Buttons ---------- */
+.a-button,
+.a-button.a-button-base,
+.a-button.a-button-toggle {
+  background: var(--ctp-surface1) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+  color: var(--ctp-text) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: none !important;
+}
+.a-button:hover { background: var(--ctp-surface2) !important; }
+.a-button .a-button-inner { background: transparent !important; border-color: var(--ctp-surface2) !important; }
+
+.a-button-primary,
+.a-button-primary .a-button-inner {
+  background: var(--ctp-mauve) !important;
+  border-color: var(--ctp-mauve) !important;
+  color: #1b1b1b !important;
+}
+.a-button-primary:hover,
+.a-button-primary .a-button-inner:hover {
+  background: var(--ctp-lavender) !important;
+  border-color: var(--ctp-lavender) !important;
+}
+
+/* Submit in header search */
+#nav-search .a-button-search,
+#nav-search .a-button-search .a-button-inner {
+  background: var(--ctp-mauve) !important;
+  border-color: var(--ctp-mauve) !important;
+  color: #1b1b1b !important;
+  border-radius: var(--radius-sm) !important;
+}
+#nav-search .a-button-search:hover,
+#nav-search .a-button-search .a-button-inner:hover {
+  background: var(--ctp-lavender) !important;
+  border-color: var(--ctp-lavender) !important;
+}
+
+/* Legacy anchors-as-buttons (Track Contribution, pagination, etc.) */
+a.btn, .btn, a.button, .button {
+  display: inline-block;
+  background: var(--ctp-mauve) !important;
+  color: #1b1b1b !important;
+  border: 1px solid var(--ctp-mauve) !important;
+  border-radius: 8px !important;
+  padding: 6px 12px !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+a.btn:hover, .btn:hover, a.button:hover, .button:hover {
+  background: var(--ctp-lavender) !important;
+  border-color: var(--ctp-lavender) !important;
+}
+
+/* Pagination “next/prev” when not styled as .btn/.button */
+a[href*="/updates/history"][href*="Start="] {
+  background: var(--ctp-surface1) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+  border-radius: 8px !important;
+  padding: 6px 12px !important;
+}
+a[href*="/updates/history"][href*="Start="]:hover { background: var(--ctp-surface2) !important; }
+
+/* ---------- Tables ---------- */
+table.a-bordered, table.a-keyvalue, .a-table, table {
+  background: transparent !important;
+  color: var(--ctp-text) !important;
+  border-color: var(--ctp-surface2) !important;
+}
+.a-table th, .a-table td, th, td { border-color: var(--ctp-surface2) !important; }
+.a-table thead th { color: var(--ctp-subtext0) !important; }
+
+/* ---------- Alerts / messages ---------- */
+.a-alert, .a-box.a-alert,
+.a-alert-info, .a-alert-success, .a-alert-warning, .a-alert-error {
+  background: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface2) !important;
+  border-left-width: 3px !important;
+}
+.a-alert-info    { border-left-color: var(--ctp-sapphire) !important; }
+.a-alert-success { border-left-color: var(--ctp-green)    !important; }
+.a-alert-warning { border-left-color: var(--ctp-peach)    !important; }
+.a-alert-error   { border-left-color: var(--ctp-red)      !important; }
+
+/* ---------- Popovers / modals / tooltips ---------- */
+.a-popover-wrapper, .a-popover, .a-popover-inner, .a-popover-content,
+.a-modal-scroller, .a-modal-dialog, .a-dialog-container, .aok-layer,
+.a-tooltip, .a-tooltip-inner {
+  background: var(--ctp-crust) !important;
+  color: var(--ctp-text) !important;
+  border: 1px solid var(--ctp-surface1) !important;
+  box-shadow: none !important;
+}
+
+/* ---------- Breadcrumbs & pagination ---------- */
+.a-breadcrumb a, .a-breadcrumb .a-breadcrumb-label { color: var(--ctp-peach) !important; }
+.a-breadcrumb a:hover { color: var(--ctp-lavender) !important; }
+.a-pagination li a, .a-pagination li span {
+  background: var(--ctp-surface0) !important;
+  color: var(--ctp-text) !important;
+  border-color: var(--ctp-surface2) !important;
+}
+.a-pagination .a-selected a, .a-pagination .a-selected span {
+  background: var(--ctp-mauve) !important;
+  color: #1b1b1b !important;
+  border-color: var(--ctp-mauve) !important;
+}
+
+/* ---------- Misc. UI polish ---------- */
+hr, .a-divider, .a-divider.a-divider-normal {
+  background: var(--ctp-surface2) !important;
+  border-color: var(--ctp-surface2) !important;
+}
+.a-badge, .a-badge .a-badge-text, .a-badge .a-badge-label {
+  background: var(--ctp-surface1) !important;
+  color: var(--ctp-text) !important;
+  border-color: var(--ctp-surface2) !important;
+}
+.a-progress-bar .a-progress-bar-inner,
+meter::-webkit-meter-optimum-value,
+meter::-moz-meter-bar { background: var(--ctp-yellow) !important; }
+:focus-visible, .a-focus-ring { outline: 2px solid var(--ctp-lavender) !important; outline-offset: 2px !important; }
+.a-scrollable, .a-modal-scroller, .a-popover-inner, .a-popover { scrollbar-color: var(--ctp-surface2) var(--ctp-surface0) !important; }
+.a-list-item:nth-child(odd) { background: rgba(49,50,68,.35) !important; }
+
+/* ===========================
+   Legacy nav & sprite fixes
+   =========================== */
+
+/* Make the whole legacy header area themed */
+#nav-bar.imdb, #nav-logo, #nav-logo-text, #nav-middle, #nav-right-top, #nav-right-bottom {
+  background: var(--ctp-crust) !important;
+  color: var(--ctp-text) !important;
+}
+
+/* Ensure header links are readable */
+#nav-bar.imdb a,
+#nav-logo-text a,
+#nav-right-top a,
+#nav-right-bottom a,
+#nav-user-name {
+  color: var(--ctp-text) !important;
+}
+#nav-user-name:hover { color: var(--ctp-lavender) !important; }
+
+/* Kill white tiles behind old sprites & invert black glyphs for dark BG */
+:not(.a-mobile) #nav-logo-image-contributor,
+:not(.a-mobile) #nav-bar.imdb #nav-logo-image-contributor,
+:not(.a-mobile) #nav-right-top #nav-mini-pro,
+:not(.a-mobile) #nav-bar.imdb #nav-logo-image {
+  background-color: var(--ctp-crust) !important;
+}
+
+/* Search link colors in the mid-nav */
+#nav-links a, #nav-links a:visited { color: var(--ctp-peach) !important; }
+#nav-links a:hover { color: var(--ctp-lavender) !important; }
+
+/* Retro black GIFs/icons in history */
+.history_bottom img,
+img[src*="retroadds-checkarrow"],
+img.hoverZoomLink[src*="transparent-pixel"] {
+  filter: invert(1) brightness(1.15) contrast(1.08) !important;
+}
+
+/* Contribute tables/text default */
+#pagecontent, #pagecontent * { color: var(--ctp-text) !important; }
 
 } /* end @-moz-document */
